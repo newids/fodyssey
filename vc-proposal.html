@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사업 제안서 — 금융백신(FinVaccine, 가칭)</title>
+<meta name="description" content="금융백신 사업 제안서 — 문제·솔루션·시장·비즈니스 모델·Go-to-Market·경쟁·AI 기술 구조·KPI·로드맵·팀·협력 제안">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23334f7a'/%3E%3Cpath d='M9 16h14M16 9v14' stroke='%23f7f5f0' stroke-width='4'/%3E%3C/svg%3E">
+<style>
+:root {
+  --paper: oklch(97.5% 0.006 85);
+  --ink: oklch(24% 0.015 260);
+  --accent: oklch(48% 0.13 250);
+  --danger: oklch(52% 0.17 25);
+  --card: oklch(99.2% 0.003 85);
+  --rule: oklch(24% 0.015 260 / 0.14);
+  --ink-soft: oklch(24% 0.015 260 / 0.72);
+  --accent-tint: oklch(48% 0.13 250 / 0.08);
+  --danger-tint: oklch(52% 0.17 25 / 0.07);
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+body {
+  font-family: var(--font-sans); background: var(--paper); color: var(--ink);
+  line-height: 1.62; font-size: 1.05rem; border-top: 10px solid var(--ink); word-break: keep-all;
+}
+.wrap { max-width: 1240px; margin-inline: auto; padding-inline: clamp(1.1rem, 4vw, 2.5rem); }
+
+.site-head { border-bottom: 1px solid var(--rule); padding-block: 1.1rem; }
+.site-head .wrap { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.brand { font-weight: 900; font-size: 1.25rem; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+.brand small { font-weight: 500; color: var(--ink-soft); font-size: 0.8rem; margin-left: 0.45rem; }
+.back { color: var(--accent); font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--accent); padding-bottom: 2px; }
+.back:hover { color: var(--danger); border-bottom-color: var(--danger); }
+
+.doc { max-width: 860px; margin-inline: auto; }
+.page-head { padding-block: clamp(2.2rem, 5vw, 4rem) clamp(1.4rem, 3vw, 2.4rem); }
+.kicker {
+  display: inline-block; font-size: 0.82rem; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent); border-left: 4px solid var(--accent);
+  padding-left: 0.6rem; margin-bottom: 0.9rem;
+}
+h1 { font-size: clamp(1.8rem, 4.5vw, 3rem); line-height: 1.18; letter-spacing: -0.02em; font-weight: 900; }
+.page-head p.lede { margin-top: 0.9rem; color: var(--ink-soft); max-width: 62ch; }
+
+.toc { background: var(--card); border: 1px solid var(--rule); border-top: 4px solid var(--ink); padding: clamp(1rem, 2.5vw, 1.5rem); margin-bottom: clamp(2rem, 4vw, 3rem); }
+.toc h2 { font-size: 0.82rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.7rem; }
+.toc ol { list-style: none; display: grid; gap: 0.35rem 1.4rem; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); counter-reset: toc; font-size: 0.95rem; }
+.toc li { counter-increment: toc; }
+.toc a { color: var(--ink); text-decoration: none; font-weight: 600; display: flex; gap: 0.5rem; align-items: baseline; padding-block: 0.1rem; }
+.toc a::before { content: counter(toc, decimal-leading-zero); font-size: 0.75rem; font-weight: 800; color: var(--accent); letter-spacing: 0.05em; }
+.toc a:hover { color: var(--accent); }
+
+section.sec { padding-bottom: clamp(1.8rem, 3.5vw, 2.8rem); }
+section.sec > h2 {
+  font-size: clamp(1.35rem, 2.6vw, 1.7rem); font-weight: 900; letter-spacing: -0.015em; line-height: 1.25;
+  border-top: 4px solid var(--ink); padding-top: 0.9rem; margin-bottom: 1rem; display: flex; gap: 0.65rem; align-items: baseline;
+}
+section.sec > h2 .no { font-size: 0.9rem; font-weight: 800; color: var(--accent); letter-spacing: 0.05em; white-space: nowrap; }
+section.sec h3 { font-size: 1.08rem; font-weight: 800; letter-spacing: -0.01em; margin: 1.4rem 0 0.6rem; }
+section.sec p { margin-bottom: 0.85rem; }
+section.sec ul, section.sec ol { margin: 0 0 0.9rem; padding-left: 1.3rem; display: flex; flex-direction: column; gap: 0.45rem; }
+.lead { font-size: 1.12rem; font-weight: 800; line-height: 1.5; letter-spacing: -0.01em; border-left: 4px solid var(--accent); background: var(--accent-tint); padding: 0.8rem 1rem; margin-bottom: 1rem; }
+.callout { border-left: 4px solid var(--accent); padding-left: 0.9rem; font-weight: 700; margin-bottom: 0.9rem; }
+
+.table-scroll { overflow-x: auto; margin: 0.4rem 0 1rem; border: 1px solid var(--rule); background: var(--card); }
+table { border-collapse: collapse; width: 100%; min-width: 34rem; font-size: 0.92rem; line-height: 1.5; }
+th, td { border-bottom: 1px solid var(--rule); padding: 0.55rem 0.7rem; text-align: left; vertical-align: top; }
+th + th, td + td { border-left: 1px solid var(--rule); }
+thead th { background: var(--accent-tint); font-weight: 800; font-size: 0.85rem; letter-spacing: 0.01em; white-space: nowrap; }
+tbody tr:last-child td { border-bottom: none; }
+
+.diagram { overflow-x: auto; background: var(--card); border: 1px solid var(--rule); border-top: 4px solid var(--accent); padding: 1rem 1.1rem; margin: 0.4rem 0 1rem; }
+.diagram pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.78rem; line-height: 1.5; white-space: pre; word-break: normal; }
+
+.notes { border-top: 1px solid var(--rule); padding-block: 1.2rem 0.6rem; color: var(--ink-soft); font-size: 0.9rem; display: flex; flex-direction: column; gap: 0.45rem; }
+.notes p strong { color: var(--ink); }
+
+.site-foot { border-top: 6px solid var(--ink); margin-top: clamp(2rem, 4vw, 3rem); padding-block: clamp(2rem, 4vw, 3rem); }
+.site-foot .wrap { display: grid; gap: 1rem; }
+.site-foot .team { font-weight: 800; font-size: 1.1rem; }
+.site-foot .team small { display: block; font-weight: 500; color: var(--ink-soft); font-size: 0.9rem; margin-top: 0.2rem; }
+.site-foot .notice { color: var(--ink-soft); font-size: 0.9rem; max-width: 62ch; }
+</style>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="index.html">금융백신<small>FinVaccine, 가칭</small></a>
+    <nav style="display:flex; gap:1.1rem; flex-wrap:wrap;" aria-label="관련 문서">
+      <a class="back" href="index.html">← 서비스 소개</a>
+      <a class="back" href="lean-canvas.html">린 캔버스</a>
+      <a class="back" href="value-proposition.html">가치 제안 캔버스</a>
+      <a class="back" href="pitch-deck.html">피치덱</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+<div class="doc">
+  <div class="page-head">
+    <span class="kicker">Business Proposal · 2026-08-22</span>
+    <h1>사업 제안서 — 금융백신</h1>
+    <p class="lede">팀 Fodyssey (Fintech Odyssey) · 작성일 2026-08-22 · 기관 연계 관련 고지: 문서 말미 주1) 참조</p>
+  </div>
+
+  <nav class="toc" aria-label="섹션 목차">
+    <h2>목차</h2>
+    <ol>
+      <li><a href="#s1">Executive Summary</a></li>
+      <li><a href="#s2">문제</a></li>
+      <li><a href="#s3">솔루션 — 2층 구조</a></li>
+      <li><a href="#s4">시장·정책 환경</a></li>
+      <li><a href="#s5">비즈니스 모델</a></li>
+      <li><a href="#s6">Go-to-Market</a></li>
+      <li><a href="#s7">경쟁·차별화</a></li>
+      <li><a href="#s8">AI 기술 구조</a></li>
+      <li><a href="#s9">KPI·성과 측정</a></li>
+      <li><a href="#s10">로드맵·리스크</a></li>
+      <li><a href="#s11">팀</a></li>
+      <li><a href="#s12">Ask — 협력 제안</a></li>
+    </ol>
+  </nav>
+
+  <section class="sec" id="s1" aria-labelledby="h-s1">
+    <h2 id="h-s1"><span class="no">1</span>Executive Summary</h2>
+    <p class="lead">금융백신 — 사기를 차단하는 앱은 많습니다. 사기에 속지 않는 사람을 만드는 인프라는 없습니다.</p>
+    <p>금융백신은 <strong>기존 교육 인프라에 꽂는 AI 면역 엔진, 수료자를 지역 예방 조직으로 바꾸는 집단면역 네트워크</strong>다.</p>
+    <p>전화금융사기 피해는 2025년 1–7월 누적 7,766억 원 규모이며(경찰청 발표, 머니투데이 보도, 2025), 피해액의 절반 이상이 50대 이상에 몰려 있다(2025년 1분기 기준 53%, 경찰청 국가수사본부). 그러나 현재의 대응은 두 갈래뿐이다. 하나는 진단도 개인화도 없는 1회성 지식 교육이고, 다른 하나는 단말·거래를 지키는 사후 차단 앱이다. <strong>사람의 판단력을 측정하고, 측정 결과에 따라 다르게 훈련시키고, 훈련된 사람을 조직으로 남기는 경로가 비어 있다.</strong></p>
+    <p>금융백신은 이 공백을 두 개 층으로 채운다. <strong>층 1(면역 엔진)</strong> 은 공개 수법 데이터를 훈련 시나리오로 자동 변환하고, 훈련 수행 행동을 취약도 점수로 환산해, 개인 취약 패턴별로 다른 훈련을 내보내는 SaaS다. <strong>층 2(집단면역 네트워크)</strong> 는 수료자를 '금융안전 서포터'로 인증해 지역 예방 활동에 배치하고, 그 제보를 다시 훈련 콘텐츠로 되돌린다.</p>
+    <p>사업의 본체는 교육 콘텐츠가 아니라 <strong>금융 소비자 보호 인프라</strong>다. 지자체·공공재단은 이미 집행 중인 교육 사업의 성과 측정·고도화 수단으로, 금융기관은 고령 고객 보호 의무 대응과 사고 예방 비용 절감 수단으로 구매한다. 신규 교육 사업을 신설하자는 제안이 아니라, <strong>이미 돌아가는 사업에 엔진을 얹자는 제안</strong>이라는 점이 공공 예산 논리와 정합한다.</p>
+  </section>
+
+  <section class="sec" id="s2" aria-labelledby="h-s2">
+    <h2 id="h-s2"><span class="no">2</span>문제</h2>
+    <h3>2-1. 피해는 커지고, 중장년·고령층에 집중된다</h3>
+    <div class="table-scroll"><table>
+      <thead><tr><th>지표</th><th>수치</th><th>출처</th></tr></thead>
+      <tbody>
+        <tr><td>전화금융사기 피해액 (2025년 1분기)</td><td>3,116억 원, 전년 동기 대비 2.2배, 건당 평균 5,301만 원</td><td>경찰청 국가수사본부 발표, 세계일보 보도, 2025</td></tr>
+        <tr><td>전화금융사기 피해액 (2025년 1–7월 누적)</td><td><strong>7,766억 원</strong></td><td>경찰청 발표, 머니투데이 보도, 2025</td></tr>
+        <tr><td>피해액 중 50대 이상 비중</td><td>32%(2023) → 47%(2024) → <strong>53%(2025년 1분기)</strong></td><td>경찰청 국가수사본부, 연도별 발표 집계</td></tr>
+        <tr><td>60대 이상 단일 연령대 피해 비중</td><td>30.6% (1위)</td><td>경찰청, 2025.9 국회 제출자료</td></tr>
+        <tr><td>60대 피해 건수</td><td>2016년 1,261건 → 2025년 5,801건 (약 4.6배)</td><td>경찰청, 한국보험신문 보도</td></tr>
+        <tr><td>기관사칭형 비중</td><td>전체 피해의 51%. 실제 기관 전화번호 80여 개를 목록화하는 수준의 수법 고도화</td><td>경찰청 발표 인용 보도, 2025</td></tr>
+      </tbody>
+    </table></div>
+    <p><strong>피해액의 53%가 50대 이상 — 32%(2023) → 47%(2024) → 53%(2025년 1분기) (경찰청 국가수사본부, 연도별 발표 집계)</strong> 이 추세는 특정 연도의 변동이 아니라 3년 연속 상승이다. 타겟 선정의 근거는 여기에 있다.</p>
+    <h3>2-2. 원인은 기기가 아니라 역량이다</h3>
+    <ul>
+      <li>취약계층 디지털 접근 96.5% · 활용 80.0% · <strong>역량 65.6%</strong> (NIA 2024 디지털정보격차 실태조사) — 기기는 보급됐고 부족한 것은 역량이다.</li>
+      <li>고령층 디지털정보화 종합 수준 <strong>71.4%로 계층 중 최저</strong> (NIA, 2024)</li>
+      <li>성인 금융이해력 <strong>65.7점</strong>, 직전 조사(66.5점) 대비 하락 (한국은행·금융감독원 2024 전국민 금융이해력 조사)</li>
+    </ul>
+    <h3>2-3. 구조적 공백 — 아무도 사람을 진단하지 않는다</h3>
+    <div class="table-scroll"><table>
+      <thead><tr><th>기존 대응</th><th>성격</th><th>공백</th></tr></thead>
+      <tbody>
+        <tr><td>금감원 e-금융교육센터, AI디지털배움터 등 공공 교육</td><td>콘텐츠 제공, 과정 단위</td><td><strong>진단 없음, 개인화 없음, 1회성</strong></td></tr>
+        <tr><td>시티즌코난 등 탐지·차단 앱</td><td>단말·거래 보호 (사후)</td><td><strong>사람의 판단력은 키우지 않음</strong></td></tr>
+        <tr><td>서울시 찾아가는 금융사기 예방 교육</td><td>체험형 대면 교육</td><td>행사 단위 1회성, 사후 관리 없음</td></tr>
+      </tbody>
+    </table></div>
+    <p>수법은 생성형 AI로 주 단위로 변형되는데, 교안은 연 단위로 갱신된다. <strong>속도의 비대칭이 문제의 본질이며, 이 비대칭은 사람 손으로 좁혀지지 않는다.</strong></p>
+  </section>
+
+  <section class="sec" id="s3" aria-labelledby="h-s3">
+    <h2 id="h-s3"><span class="no">3</span>솔루션 — 2층 구조</h2>
+    <h3>층 1. 면역 엔진 (B2B2G SaaS)</h3>
+    <p>기존 교육 프로그램 커리큘럼에 그대로 꽂는 AI 훈련·진단 엔진.</p>
+    <ol>
+      <li><strong>수법 인텔리전스</strong> — 경찰청·금감원 공개 수법 데이터를 수집·정제해 AI가 훈련 시나리오로 자동 변환한다. 외부 원문은 AI 1차 검증과 사람 검수를 함께 거친 뒤 적재한다.</li>
+      <li><strong>취약도 진단</strong> — 훈련 수행 행동 데이터를 Rule-based Scoring으로 점수화한다. 기준과 가중치를 문서로 남겨 <strong>재현·감사 가능</strong>하며, 데이터가 쌓인 뒤 ML로 고도화한다.</li>
+      <li><strong>적응형 훈련</strong> — 개인 취약 패턴(권위 순응형 / 악성앱·명의도용형 등)별 집중 노출 훈련, 문해 수준별 문안 조정 (LLM + RAG, 공식 금융자료를 근거로 제시).</li>
+    </ol>
+    <h3>층 2. 집단면역 네트워크 (조직화)</h3>
+    <p class="callout">훈련 수료자가 '금융안전 서포터'가 되어 이웃을 지키고, 서포터의 제보가 다시 훈련이 됩니다.</p>
+    <p>수료자 중 희망자를 서포터로 인증해 지역·가족 단위 예방 활동(교육 보조, 의심사례 상담 연결, 취약 이웃 동반 훈련)에 배치하고, 서포터의 의심사례 제보를 수법 인텔리전스로 환류시켜 훈련 시나리오를 갱신한다. <strong>데이터 플라이휠</strong>이 여기서 돈다: 훈련 → 수료 → 서포터 → 제보 → 신규 시나리오 → 훈련.</p>
+    <h3>왜 2층이어야 하는가</h3>
+    <p><strong>차단은 항생제, 훈련은 백신입니다. 우리는 개인 접종(진단·훈련)에서 집단면역(조직화)까지 갑니다.</strong> 층 1만 있으면 또 하나의 교육 콘텐츠에 그치고, 층 2만 있으면 자원봉사 조직에 그친다. 두 층이 붙을 때만 데이터가 순환하고 서비스가 시간이 갈수록 강해진다.</p>
+  </section>
+
+  <section class="sec" id="s4" aria-labelledby="h-s4">
+    <h2 id="h-s4"><span class="no">4</span>시장·정책 환경</h2>
+    <ul>
+      <li><strong>금융위원회 「포용금융 전략 추진단」</strong> — 2026년 5월 구성·운영방안 발표, 분과 순차 가동</li>
+      <li><strong>금융위원회 「생애주기별 금융교육을 통한 금융역량 강화」</strong> — 2025년 12월 금융교육협의회. '금융역량'은 정책 실재 용어이며, 고령층 금융피해 예방 교육이 명시돼 있다.</li>
+      <li><strong>AI 기본법 시행(2026.1)</strong> 및 금융위 AI 활용 7대 원칙 — 설계 단계부터 대응 (§8-3)</li>
+      <li><strong>기존 교육 인프라의 실재</strong> — 서울시50플러스재단 권역 캠퍼스 5개소 + 자치구 센터 14개소, 과기정통부 AI디지털배움터 전국망</li>
+    </ul>
+    <p>정책 문서가 요구하는 것은 '교육 실시'가 아니라 <strong>'금융역량 강화'</strong> 다. 역량은 측정되지 않으면 강화 여부를 보고할 수 없다. 금융백신이 파는 것이 사실상 <strong>정책 성과의 측정 가능성</strong>인 이유다.</p>
+  </section>
+
+  <section class="sec" id="s5" aria-labelledby="h-s5">
+    <h2 id="h-s5"><span class="no">5</span>비즈니스 모델</h2>
+    <div class="table-scroll"><table>
+      <thead><tr><th>고객</th><th>지불 이유</th><th>형태</th></tr></thead>
+      <tbody>
+        <tr><td><strong>B2G</strong> — 지자체·공공재단 (50플러스재단, 평생교육 기관)</td><td>기존 교육 사업의 성과 측정·고도화. 신규 예산 신설이 아니라 집행 중 사업의 고도화 항목으로 편성 가능</td><td>위탁·라이선스</td></tr>
+        <tr><td><strong>B2B</strong> — 은행·보험·증권</td><td>고령 고객 보호 의무 대응(통신사기피해환급법 등), 사고 예방에 따른 배상·상담 비용 절감, ESG 실적</td><td>좌석 라이선스·API 과금</td></tr>
+        <tr><td><strong>데이터</strong> — 금융기관·정책기관</td><td>익명화된 지역·세그먼트별 취약도 인덱스 리포트</td><td>구독</td></tr>
+      </tbody>
+    </table></div>
+    <ul>
+      <li><strong>개인(C)은 무료</strong> — 공공성 유지와 네트워크 성장을 우선한다. 금융상품 판매·중개는 하지 않는다.</li>
+      <li>지불 주체가 셋이지만 <strong>첫 매출 경로는 B2G 하나로 좁힌다.</strong> B2B는 파일럿 성과 데이터를 레퍼런스로 확보한 뒤에 여는 경로이며, 현재는 지불 유인 논리만 확보된 상태다(고객 검증 전).</li>
+      <li>계약 단가·규모는 재단 2026년 주요 업무 보고의 예산 단위를 확인한 뒤 산정할 예정이며, 확인 전까지는 제시하지 않는다.</li>
+      <li>※ 매출 추정치는 근거 확보 전까지 제시하지 않는다.</li>
+    </ul>
+  </section>
+
+  <section class="sec" id="s6" aria-labelledby="h-s6">
+    <h2 id="h-s6"><span class="no">6</span>Go-to-Market — 기존 교육 프로그램 연계·확산</h2>
+    <p><strong>이 문서에서 가장 중요한 섹션이다.</strong> 금융백신의 난제는 기술이 아니라 유통이며, 우리는 유통망을 새로 만들지 않고 <strong>이미 존재하는 오프라인 교육 거점망에 올라탄다.</strong></p>
+    <h3>6-1. 왜 50플러스재단인가</h3>
+    <p>서울시50플러스재단은 서울시 중장년(50+) 정책의 컨트롤타워이며, 권역 캠퍼스 5개소(북부·중부·남부·동부·서부)와 자치구 센터 14개소로 <strong>서울 전역의 오프라인 교육 거점망</strong>을 이미 보유하고 있다. 우리 타겟(피해액의 53%가 몰린 50대 이상)과 기관의 정책 대상이 정확히 일치하고, 거점·강사·모집 채널이 이미 돌아가고 있다. 기존 캠퍼스·센터 채널을 활용하므로 신규 채널 구축 부담이 낮다.</p>
+    <p>특히 북부캠퍼스 중장년취업사관학교의 <strong>디지털금융교육 강사 양성과정</strong>(6회 18시간, 시니어 대상 디지털금융교육 강사 양성 — 2026년 5월 28일~7월 2일 기수 확인, 기수당 25명)은 <strong>수료자가 곧 우리의 보급 인력이 되는 구조</strong>다. 교육생을 모으는 과정이 아니라 교육하는 사람을 만드는 과정이므로, 수료 강사가 자치구 센터에서 활동할 수 있는 구조다(활동 배치는 재단 운영 사항이며, 실제 배치 비율은 미확인이다).</p>
+    <h3>6-2. 3단계 확산</h3>
+    <div class="table-scroll"><table>
+      <thead><tr><th>단계</th><th>대상</th><th>내용</th><th>전제</th></tr></thead>
+      <tbody>
+        <tr><td><strong>① 파일럿 (D+6개월)</strong></td><td>50플러스 북부캠퍼스 디지털금융교육 강사 양성과정 1개 기수(25명)</td><td>커리큘럼에 엔진 탑재, 사전·사후 취약도 측정, 수료자 서포터 1기 전환</td><td><strong>재단 협약 필요(미확보)</strong></td></tr>
+        <tr><td><strong>② 서울 확산 (1~2년차)</strong></td><td>5개 캠퍼스 + 14개 자치구 센터, 서울런4050</td><td>인증 강사가 엔진으로 교육을 수행, 서포터 활동을 가치동행일자리 틀에 연결</td><td>파일럿 성과 데이터</td></tr>
+        <tr><td><strong>③ 전국·민간 (2~3년차)</strong></td><td>AI디지털배움터(전국망), 금융사 B2B</td><td>전국망 복제 + 금융사 고객 교육·창구 연계</td><td>서울 성과·레퍼런스</td></tr>
+      </tbody>
+    </table></div>
+    <p>이후 경기·부산 등 타 시도 중장년 재단으로 같은 구조를 복제한다.</p>
+    <p>각 단계의 진입 방식은 다르다. ①은 <strong>강사에게 도구를 쥐여 주는 것</strong>이고, ②는 <strong>재단의 기존 사업 지표를 개선해 주는 것</strong>이며, ③은 <strong>레퍼런스를 들고 파는 것</strong>이다. ①에서 만들어야 하는 유일한 산출물은 매출이 아니라 <strong>사전·사후 취약도 개선폭 데이터</strong>다.</p>
+    <h3>6-3. 교육생 조직화 프로그램</h3>
+    <p>확산의 두 번째 축은 사람이다. 교육은 끝나면 흩어지지만, 조직은 남는다.</p>
+    <div class="diagram"><pre>수료          →  인증           →  활동                    →  환류
+훈련 이수        교육 이수 +        · 캠퍼스·센터 교육 보조     의심사례 제보
+                 실습 통과 →        · 취약 이웃 동반 훈련        ↓
+                 금융안전 서포터     · 의심사례 상담 연결       수법 인텔리전스 갱신
+                                                              ↓
+                                                          신규 훈련 시나리오</pre></div>
+    <ul>
+      <li><strong>인증 기준</strong>: 교육 이수 + 실습 통과 2요건. 자격이 아니라 <strong>역량을 측정해 부여하는 인증</strong>이라는 점이 기존 수료증과 다르다.</li>
+      <li><strong>활동 재원</strong>: 신규 예산 요구가 아니라, 재단이 이미 운영 중인 <strong>가치동행일자리</strong>(지역복지·사회서비스 참여형 중장년 일자리) 틀에 서포터 활동을 태우는 방식을 제안한다. 예산 신설 없이 활동비 재원 논리가 성립한다.</li>
+      <li><strong>환류</strong>: 서포터 제보는 현장 최전선의 신종 수법 신호다. 이 제보가 훈련 시나리오로 되돌아오면서, 서비스는 확산될수록 콘텐츠 갱신 속도가 빨라진다.</li>
+      <li><strong>리스크</strong>: 서포터 활동의 지속성은 <strong>미검증 항목</strong>이다. 활동비·인정 체계 없이는 이탈한다고 보고 설계해야 하며, 이 때문에 일자리 사업 틀 연결이 선택이 아니라 전제다.</li>
+    </ul>
+    <h3>6-4. 의사결정권자에게 제시하는 논리 3줄</h3>
+    <ol>
+      <li><strong>신규 사업 신설이 아니라 기존 사업 고도화다.</strong> 예산 편성 논리가 '증액'이 아니라 '고도화'로 잡힌다.</li>
+      <li><strong>성과가 숫자로 보고된다.</strong> 이수자 수, 취약도 개선폭, 서포터 배출 수, 제보 건수 — 전부 시스템이 자동 집계한다.</li>
+      <li><strong>정책 근거가 실재한다.</strong> 금융위 포용금융 전략 추진단, 생애주기별 금융교육을 통한 금융역량 강화(2025.12) — 상부 보고 시 인용할 근거가 이미 있다.</li>
+    </ol>
+  </section>
+
+  <section class="sec" id="s7" aria-labelledby="h-s7">
+    <h2 id="h-s7"><span class="no">7</span>경쟁·차별화</h2>
+    <p>비교 축 4개는 문제 정의에서 그대로 가져왔다. ① 사람의 역량을 진단하는가 ② 개인화 단위가 무엇인가 ③ 진단이 다음 학습을 정하는가 ④ 무엇을 지키는가.</p>
+    <div class="table-scroll"><table>
+      <thead><tr><th>구분</th><th>진단 유무</th><th>개인화 단위</th><th>진단–학습 연결</th><th>무엇을 지키는가</th></tr></thead>
+      <tbody>
+        <tr><td>공공 금융교육 (금감원 e-금융교육센터, AI디지털배움터, 서울시 방문교육)</td><td>없음</td><td>세그먼트·과정 단위</td><td>없음</td><td>지식</td></tr>
+        <tr><td>탐지·차단 앱 (시티즌코난)</td><td>단말 상태 검사</td><td>단말</td><td>없음</td><td>단말</td></tr>
+        <tr><td>스팸 판별·차단 (후후·후스콜, 통신사 필터링)</td><td>없음</td><td>발신번호·패턴</td><td>없음</td><td>통신 채널</td></tr>
+        <tr><td>금융앱 내 탐지 (토스·카카오페이)</td><td>위험 탐지</td><td>단말·계좌·거래 상대</td><td>없음</td><td>단말·계좌</td></tr>
+        <tr><td>기업 모의훈련 (과기정통부·KISA)</td><td>있음 (조직 단위 측정)</td><td>소속 조직 단위</td><td>부분</td><td>사람의 판단(임직원)</td></tr>
+        <tr><td>해외 기업용 시뮬레이션 (KnowBe4·Hoxhunt·Proofpoint)</td><td>있음</td><td>개인 단위(임직원)</td><td>있음</td><td>사람의 판단(임직원)</td></tr>
+        <tr><td><strong>금융백신</strong></td><td><strong>있음 — 훈련 수행 데이터로 취약도 진단</strong></td><td><strong>개인의 취약 패턴별</strong></td><td><strong>있음 — 진단 결과가 다음 훈련을 정한다</strong></td><td><strong>사람의 판단력 + 지역 예방 조직</strong></td></tr>
+      </tbody>
+    </table></div>
+    <p>조사 범위(2026-08-17 기준 공개 자료)에서 관찰된 것은 셋이다. <strong>첫째, 시민을 향한 서비스에는 진단이 거의 없다.</strong> 콘텐츠는 이미 많고, 없는 것은 진단이다. <strong>둘째, 개인화가 있는 계열은 사람이 아니라 장치를 본다</strong> — 단말·계좌·발신번호가 단위다. <strong>셋째, 진단–학습 연결이 성립한 사례는 조직 대상에만 있다</strong> — 국내외 모두 계약 단위가 기업이며, 시민 개인이 상시로 받는 모의사기 실습 프로그램은 확인되지 않았다.</p>
+    <p>금융백신의 위치는 여기다. 조직 대상에서만 성립하던 조합을 <strong>공공 교육 인프라를 계약 단위로 삼아 시민에게</strong> 가져오고, 거기에 <strong>네 번째 층(수료자 조직화)</strong> 을 붙인다 — 위 비교 계열 중 훈련과 조직화를 하나의 데이터 루프로 묶은 사례는 조사 범위에서 관찰되지 않았다. 조직화는 단순 부가 기능이 아니라 데이터 획득 경로이자 방어선이다.</p>
+  </section>
+
+  <section class="sec" id="s8" aria-labelledby="h-s8">
+    <h2 id="h-s8"><span class="no">8</span>AI 기술 구조</h2>
+    <h3>8-1. 시스템 구성 (설계 수준)</h3>
+    <div class="diagram"><pre> [교육 운영 기관]                              [공개 데이터]
+   강사 · 교육생                          경찰청 · 금감원 수법 공개자료
+      │ 훈련 수행                                  │ 원문 수집
+      ▼                                            ▼
+ ┌─────────────┐                        ┌──────────────────────┐
+ │ 훈련 실행 모듈 │                        │ 수법 인텔리전스        │
+ │ (가상 수신함)  │                        │ 파이프라인            │
+ │ 실계좌 접근 없음│◀── 시나리오 배포 ──────│ AI 1차 검증 + 사람 검수│
+ └──────┬──────┘                        └──────────▲───────────┘
+        │ 행동 데이터(발송·피격)                      │ 제보 환류
+        ▼                                            │
+ ┌─────────────┐   취약 패턴   ┌──────────────┐  ┌──┴─────────────┐
+ │ 취약도 진단 엔진│─────────────▶│ 적응형 훈련 생성│  │ 서포터 제보 채널 │
+ │ Rule → ML     │              │ LLM + RAG     │  └────────────────┘
+ └──────┬──────┘              └───────┬──────┘            ▲
+        │ 가명처리 저장                  │ 문안·근거          │ 제보
+        ▼                              ▼                   │
+ ┌──────────────────────────────────────────┐      ┌──────┴──────┐
+ │ 데이터 저장소 (가명처리 프로필 · 수행기록 · 근거) │      │ 금융안전 서포터│
+ └────────────────────┬─────────────────────┘      └─────────────┘
+                      │ 집계 단위 산출(최소 인원 미달 집단 미산출)
+                      ▼
+              ┌───────────────┐
+              │ 기관 대시보드   │  이수자 · 개선폭 · 서포터 · 제보
+              │ 취약도 인덱스   │
+              └───────────────┘</pre></div>
+    <h3>8-2. AI 기술 적용 (2단 서술 — 지금 동작하는 경로와 고도화 경로를 항상 병기)</h3>
+    <div class="table-scroll"><table>
+      <thead><tr><th>기능 (다이어그램 박스)</th><th>적용 기술</th><th>지금 동작하는 경로 (Rule)</th><th>고도화 경로 (ML/LLM)</th><th>왜 AI여야 하는가</th></tr></thead>
+      <tbody>
+        <tr><td><strong>수법 인텔리전스 파이프라인</strong></td><td>공개 데이터 수집·정제 + LLM 시나리오 변환</td><td>수집한 공개 수법 데이터를 정형 템플릿에 매핑해 시나리오 초안을 만든다</td><td>수법 원문에서 변형 패턴을 추출해 시나리오 변형을 자동 생성한다</td><td><strong>수법이 생성형 AI로 주 단위 변형되는 속도를 사람 손 교안 갱신이 따라갈 수 없다.</strong> 생성 속도를 생성 속도로 맞추는 것 외에 방법이 없다</td></tr>
+        <tr><td><strong>취약도 진단 엔진</strong></td><td>Rule-based Scoring → ML(분류·회귀)</td><td>사전 정의한 기준·가중치로 행동 데이터를 점수화한다. 기준이 문서로 남아 재현·감사 가능</td><td>축적된 수행 데이터를 학습해 취약 패턴 판정을 정교화한다</td><td><strong>연령대가 역량의 대리 지표가 되지 못한다는 것이 문제 정의 그 자체다.</strong> 개인별 취약 영역 판정은 데이터를 학습하지 않으면 정교해지지 않는다</td></tr>
+        <tr><td><strong>적응형 훈련 생성</strong></td><td>Instruction LLM + Context Prompting + RAG</td><td>취약 패턴·문해 수준을 조건으로 전달해 문안 방식을 조정한다</td><td>공식 금융자료를 검색해 답변 근거로 함께 제시한다</td><td>같은 내용을 <strong>사람마다 다른 방식으로 말해야</strong> 한다. 고정 문안 분기는 조합이 폭발하고, 근거를 붙이는 일은 검색과 생성이 함께 필요하다</td></tr>
+        <tr><td><strong>서포터 제보 채널</strong></td><td>AI 1차 분류 + 사람 검수</td><td>제보를 수법 유형으로 1차 분류해 검수 큐에 넣는다</td><td>신종 수법 신호를 조기 탐지해 시나리오 갱신 우선순위를 정한다</td><td>비정형 제보를 사람이 전수 분류하면 환류 주기가 수법 변형 주기보다 느려진다</td></tr>
+      </tbody>
+    </table></div>
+    <p>※ 다이어그램의 나머지 3박스(<strong>훈련 실행 모듈 · 데이터 저장소 · 기관 대시보드</strong>)는 AI 미적용 컴포넌트다 — 각각 가상 수신함 실행, 가명처리 저장·조회, 집계 리포팅을 담당하며 규칙·질의 기반으로 동작한다.</p>
+    <h3>8-3. 취약도 진단 산식의 설계 원칙</h3>
+    <ul>
+      <li><strong>분모는 발송(노출), 분자는 피격</strong> — 링크 클릭, 정보 입력·전송, 사기 시나리오를 정상으로 판정한 경우를 피격으로 규칙 판정한다.</li>
+      <li><strong>최근 회차에 더 큰 가중치</strong>를 주는 반감기 방식을 쓴다. 반년 전 결과와 지난주 결과를 같은 무게로 더하면 "지금 이 사람이 얼마나 위험한가"에 답하지 못한다.</li>
+      <li><strong>누적 노출이 일정 횟수에 미달하면 점수를 내지 않고 '측정 중'으로 표기한다.</strong> 기관 단위 집계는 최소 인원 미달 시 산출하지 않는다(재식별 방지).</li>
+      <li>반감기·최소 인원 기준값은 근거 있는 상수가 아니라 <strong>운영 기본값</strong>이며, 도입 기관의 규모·정책에 따라 조정한다.</li>
+    </ul>
+    <h3>8-4. 금융위 AI 활용 7대 원칙 대응</h3>
+    <div class="table-scroll"><table>
+      <thead><tr><th>원칙</th><th>대응</th><th>수준</th></tr></thead>
+      <tbody>
+        <tr><td>거버넌스</td><td>진단이 규칙 기반 점수화에서 출발하므로 기준·가중치가 문서로 남고 산출이 재현·감사 가능</td><td>설계 반영</td></tr>
+        <tr><td>합법성</td><td>답변 근거는 공식 금융자료·공공정보만 사용, 개인 금융정보 미수집</td><td>설계 원칙 수립 (법적 검토 진행 예정)</td></tr>
+        <tr><td>보조수단성</td><td>AI는 안내·피드백의 보조수단이며 최종 판단은 사용자에게 있음</td><td>설계 반영</td></tr>
+        <tr><td>신뢰성</td><td>RAG로 근거를 함께 제시, 진단 점수는 규칙 계산 결과로 산출</td><td>설계 반영</td></tr>
+        <tr><td>금융안정성</td><td>실습은 가상 수신함 한정, <strong>실제 금융 시스템에 대한 쓰기 접근 없음</strong></td><td>설계 반영</td></tr>
+        <tr><td>신의성실</td><td>금융상품 판매·중개 없음. 수익은 라이선스·API 과금에서만 발생</td><td>설계 반영</td></tr>
+        <tr><td>보안성</td><td>프로필 가명처리 저장, 기관 제공 결과는 집계 단위로만 산출</td><td>설계 반영</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="sec" id="s9" aria-labelledby="h-s9">
+    <h2 id="h-s9"><span class="no">9</span>KPI·성과 측정</h2>
+    <p>KPI 4종: <strong>이수자 수 · 취약도 개선폭(사전·사후) · 서포터 배출 수 · 의심사례 제보 건수</strong></p>
+    <div class="table-scroll"><table>
+      <thead><tr><th>KPI</th><th>측정 방법</th><th>보고 단위</th></tr></thead>
+      <tbody>
+        <tr><td>이수자 수</td><td>훈련 이수 자동 집계</td><td>기관·캠퍼스·기수별</td></tr>
+        <tr><td>취약도 개선폭</td><td>과정 시작 시점과 종료 시점의 취약도 점수 차 (사전·사후 동일 산식)</td><td>집단 평균, 최소 인원 미달 집단 미산출</td></tr>
+        <tr><td>서포터 배출 수</td><td>인증 요건(교육 이수 + 실습 통과) 충족자 수</td><td>기관·지역별</td></tr>
+        <tr><td>의심사례 제보 건수</td><td>서포터 제보 채널 접수 건수 및 시나리오 반영 건수</td><td>월 단위</td></tr>
+      </tbody>
+    </table></div>
+    <ul>
+      <li><strong>부가 지표</strong>: 연계 프로그램 수, 인증 강사 수.</li>
+      <li><strong>방법론 선례</strong>: 예고 없는 시나리오를 반복 제시하고 반응을 수치로 측정하는 방식은 이미 국가 사업으로 집행 중이다. 과기정통부·KISA 사이버 위기대응 모의훈련은 2026년 상반기에 <strong>630개 기업·임직원 25만 5,460명</strong> 규모로 시행됐고, 디도스 대응 훈련에서 <strong>재참여 기업이 신규 참여 기업보다 탐지·대응 시간에서 우위</strong>를 보였다(반복 훈련의 효과가 수치로 확인된 사례). 다만 측정 대상과 참여 조건이 다르므로, 우리 지수를 이 훈련의 지표와 직접 비교하지는 않는다.</li>
+      <li><strong>제시하지 않는 것</strong>: 피해 감소액 추정치는 산출 근거 확보 전까지 제시하지 않는다. 이용자 수 목표치도 파일럿 실측 전에는 제시하지 않는다.</li>
+    </ul>
+  </section>
+
+  <section class="sec" id="s10" aria-labelledby="h-s10">
+    <h2 id="h-s10"><span class="no">10</span>로드맵·리스크</h2>
+    <h3>10-1. 로드맵</h3>
+    <div class="table-scroll"><table>
+      <thead><tr><th>시점</th><th>마일스톤</th><th>완료 판정 기준</th></tr></thead>
+      <tbody>
+        <tr><td>D+0~3개월</td><td>엔진 프로토타입 (수법 인텔리전스 → 시나리오 생성 → Rule 기반 진단)</td><td>공개 데이터로 시나리오 생성부터 채점까지 한 흐름으로 동작</td></tr>
+        <tr><td>D+3~6개월</td><td>재단 연계 제안 및 파일럿 착수</td><td>1개 기수(25명) 커리큘럼 탑재, 강사 교육 2시간 실시</td></tr>
+        <tr><td>D+6~12개월</td><td>파일럿 성과 데이터 확보, 서포터 1기 전환</td><td>사전·사후 취약도 개선폭 산출, 서포터 인증 체계 가동</td></tr>
+        <tr><td>1~2년차</td><td>서울 확산 (5개 캠퍼스 + 14개 자치구 센터)</td><td>인증 강사 기반 교육 수행, 가치동행일자리 연결 협의</td></tr>
+        <tr><td>2~3년차</td><td>전국·민간 (AI디지털배움터, 금융사 B2B)</td><td>전국망 복제, B2B 첫 계약</td></tr>
+      </tbody>
+    </table></div>
+    <h3>10-2. 리스크 — 미확보 전제의 정직한 목록</h3>
+    <div class="table-scroll"><table>
+      <thead><tr><th>리스크</th><th>현재 상태</th><th>대응</th></tr></thead>
+      <tbody>
+        <tr><td><strong>재단 협약 미확보</strong></td><td>제안 단계. 협약은 체결되지 않았다</td><td>재단의 공개된 사업 구조(강사 양성과정·가치동행일자리)에 맞춘 제안 형태로 접근. 2026년 주요 업무 보고 정독 후 예산·사업 코드 정합 확인</td></tr>
+        <tr><td><strong>가치동행일자리 연결은 재단의 정책 판단</strong></td><td>미확보</td><td>활동비 재원을 전제하지 않는 최소 운영안(무보수 인정 중심)을 병행 설계</td></tr>
+        <tr><td><strong>서포터 활동의 지속성 미검증</strong></td><td><strong>미검증 — 최대 리스크</strong></td><td>인정 체계·활동비 틀 없이는 이탈을 기본값으로 가정하고 설계. 파일럿에서 6개월 잔존을 실측</td></tr>
+        <tr><td><strong>금융사 B2B 지불 의사 미검증</strong></td><td>지불 유인 논리만 확보, 고객 검증 전</td><td>파일럿 착수 후 인터뷰 실시. 그 전까지 B2B 매출을 계획의 전제로 삼지 않음</td></tr>
+        <tr><td><strong>서비스명 충돌</strong></td><td>"금융백신"은 가칭, 상표·기존 서비스명 충돌 검토 전</td><td>검토 후 확정</td></tr>
+        <tr><td>공개 데이터 접근성</td><td>확인됨 (공공데이터포털 CSV 실재)</td><td>—</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="sec" id="s11" aria-labelledby="h-s11">
+    <h2 id="h-s11"><span class="no">11</span>팀</h2>
+    <p>팀 Fodyssey는 <strong>기획·AI 개발·데이터·교육 연계·검증 5개 역할 구조</strong>로 구성된다.</p>
+    <ul>
+      <li><strong>기획</strong> — 기관 연계 제안, 사업 구조 설계, 대외 커뮤니케이션</li>
+      <li><strong>AI 개발</strong> — 수법 인텔리전스 파이프라인, 적응형 훈련 생성(LLM·RAG)</li>
+      <li><strong>데이터</strong> — 취약도 산식, 기준·가중치 문서화, 가명처리·감사 추적 설계</li>
+      <li><strong>교육 연계</strong> — 강사 교육, 서포터 인증 체계, 제보 채널 운영</li>
+      <li><strong>검증</strong> — 훈련 실행 모듈·기관 대시보드 품질 관리, 파일럿 성과 측정 설계</li>
+    </ul>
+    <p>역할 다섯 개는 파일럿 6개월 일정을 수행하는 최소 단위로 잡은 것이며, 한 사람이 둘 이상의 역할을 겸하는 구성도 가능하다.</p>
+  </section>
+
+  <section class="sec" id="s12" aria-labelledby="h-s12">
+    <h2 id="h-s12"><span class="no">12</span>Ask — 협력 제안</h2>
+    <p>투자 유치가 아니라 <strong>파일럿을 성립시키는 데 필요한 협력</strong> 셋을 제안한다.</p>
+    <ol>
+      <li><strong>사업화 협력</strong> — 엔진 프로토타입에서 파일럿 운영본으로 넘어가는 구간의 인프라(클라우드·데이터·보안) 및 멘토링 협력.</li>
+      <li><strong>연계 협력 주선</strong> — 서울시50플러스재단 등 공공 교육 운영 기관과의 공식 접점. 우리가 스스로 뚫는 데 가장 오래 걸리는 구간이 여기다.</li>
+      <li><strong>레퍼런스 인정</strong> — 파일럿 성과 데이터를 공공·금융기관 대상으로 인용할 수 있는 공신력.</li>
+    </ol>
+    <p>우리가 드릴 수 있는 것은 <strong>정책 성과의 측정 가능성</strong>이다. 금융역량 강화는 이미 정책 문서에 있고, 교육은 이미 집행되고 있다. 없는 것은 그 교육이 사람을 실제로 덜 속게 만들었는지를 숫자로 답하는 수단이며, 금융백신은 그 수단이다.</p>
+  </section>
+
+  <div class="notes">
+    <p><strong>주1)</strong> 본 제안의 기관 연계는 협약 체결 전의 제안입니다. (본문 §6 전체에 적용)</p>
+    <p><strong>주2)</strong> 모든 수치는 PROJECT_BRIEF v1.0의 팩트체크 완료 항목만 사용했으며, 기관·기준 시점을 병기했다. 원문 출처 22건은 별도 출처 목록에 대응한다.</p>
+    <p><strong>주3)</strong> 서비스명 "금융백신(FinVaccine)"은 가칭이다.</p>
+  </div>
+</div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p class="team">팀 Fodyssey<small>Fintech Odyssey</small></p>
+    <p class="notice">본 문서는 아이디어 소개용 시안이며 서비스 운영 전입니다. 서비스명 '금융백신(FinVaccine)'은 가칭입니다.</p>
+  </div>
+</footer>
+</body>
+</html>

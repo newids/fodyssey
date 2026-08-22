@@ -1,0 +1,269 @@
+:root {
+  --paper: oklch(97.5% 0.006 85);
+  --ink: oklch(24% 0.015 260);
+  --ink-soft: oklch(42% 0.012 260);
+  --accent: oklch(48% 0.13 250);
+  --accent-soft: oklch(48% 0.13 250 / 0.09);
+  --danger: oklch(52% 0.17 25);
+  --danger-soft: oklch(52% 0.17 25 / 0.1);
+  --ok: oklch(55% 0.12 155);
+  --ok-soft: oklch(55% 0.12 155 / 0.12);
+  --card: oklch(99.2% 0.003 85);
+  --rule: oklch(24% 0.015 260 / 0.14);
+  --bubble: oklch(93% 0.01 250);
+
+  --text-base: clamp(1rem, 0.94rem + 0.3vw, 1.0625rem);
+  --radius: 0.75rem;
+  --duration-fast: 150ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --font-sans: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont,
+    'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', system-ui, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { font-size: 100%; }
+/* 큰 글씨 모드: 컴포지터 밖 속성이지만 모드 전환 1회성이라 허용 */
+html[data-large='true'] { font-size: 118%; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.65;
+  word-break: keep-all;
+}
+
+#root { max-width: 28rem; margin: 0 auto; padding: 1.25rem 1.25rem 4rem; }
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  border: 1px solid var(--rule);
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 0.85rem 1.2rem;
+  transition: transform var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast), background var(--duration-fast);
+}
+button:hover { border-color: var(--accent); background: var(--accent-soft); }
+button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+button:active { transform: scale(0.98); }
+
+.btn-primary {
+  background: var(--accent);
+  color: oklch(98% 0 0);
+  border-color: var(--accent);
+  font-weight: 700;
+  width: 100%;
+}
+.btn-primary:hover { background: oklch(42% 0.13 250); color: oklch(98% 0 0); }
+.btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+.kicker {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+  border-top: 3px solid var(--ink);
+  padding-top: 0.6rem;
+  margin-bottom: 0.75rem;
+}
+
+h1 { font-size: 1.6rem; letter-spacing: -0.02em; line-height: 1.25; }
+h2 { font-size: 1.25rem; letter-spacing: -0.01em; margin-bottom: 0.75rem; }
+
+.muted { color: var(--ink-soft); font-size: 0.9rem; }
+
+.stack { display: grid; gap: 0.75rem; }
+.mt { margin-top: 1.5rem; }
+
+/* ---- 온보딩 ---- */
+.option-list { display: grid; gap: 0.6rem; margin-top: 1rem; }
+.option-list button { text-align: left; font-size: 1.05rem; }
+.progress-dots { display: flex; gap: 0.4rem; margin: 1rem 0; }
+.progress-dots span {
+  width: 0.5rem; height: 0.5rem; border-radius: 50%;
+  background: var(--rule);
+}
+.progress-dots span.on { background: var(--accent); }
+
+/* ---- 퀴즈: 문자 목록 ---- */
+.phone {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 1.25rem;
+  padding: 1rem;
+  display: grid;
+  gap: 0.75rem;
+}
+.msg {
+  text-align: left;
+  background: var(--bubble);
+  border: 2px solid transparent;
+  border-radius: 0.25rem 1rem 1rem 1rem;
+  padding: 0.8rem 1rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  white-space: pre-line;
+}
+.msg:hover { border-color: var(--accent); background: var(--bubble); }
+.msg[aria-pressed='true'] {
+  border-color: var(--danger);
+  background: var(--danger-soft);
+}
+.msg[aria-pressed='true']::after {
+  content: '🚨 사기로 지목함';
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--danger);
+}
+.msg.reveal-scam { border-color: var(--danger); background: var(--danger-soft); }
+.msg.reveal-legit { border-color: var(--ok); background: var(--ok-soft); }
+
+/* ---- 해설 ---- */
+.explain-card {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 1.1rem 1.25rem;
+  display: grid;
+  gap: 0.8rem;
+}
+.explain-card .verdict { font-weight: 800; font-size: 1.1rem; }
+.explain-card .verdict.bad { color: var(--danger); }
+.explain-card .verdict.good { color: var(--ok); }
+.clue-list { list-style: none; display: grid; gap: 0.45rem; }
+.clue-list li { padding-left: 1.3rem; position: relative; font-size: 0.92rem; }
+.clue-list li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+
+.step-panel {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 1.5rem 1.35rem;
+  display: grid;
+  gap: 1rem;
+  min-height: 14rem;
+  align-content: start;
+}
+.step-panel .step-meta { font-size: 0.8rem; color: var(--ink-soft); letter-spacing: 0.06em; }
+.step-panel h3 { font-size: 1.3rem; line-height: 1.35; }
+.step-panel p { font-size: 1.1rem; line-height: 1.8; }
+
+.action-line {
+  background: var(--accent-soft);
+  border-radius: var(--radius);
+  padding: 0.9rem 1rem;
+  font-weight: 600;
+}
+
+/* ---- 결과 ---- */
+.score {
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+  line-height: 1.1;
+}
+
+/* ---- 대응 수칙 카드 ---- */
+.rule-list { list-style: none; display: grid; gap: 0.9rem; }
+.rule-list li { display: grid; gap: 0.2rem; }
+.rule-list strong { font-size: 1rem; }
+.rule-list span { color: var(--ink-soft); font-size: 0.92rem; }
+
+/* ---- 패널 (취약도·공유·리포트) ---- */
+.panel {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.15rem;
+  display: grid;
+  gap: 0.7rem;
+}
+.panel h3 { font-size: 1.05rem; letter-spacing: -0.01em; }
+
+/* ---- 취약도 막대 ---- */
+.lure-list { list-style: none; display: grid; gap: 0.85rem; }
+.lure-row { display: grid; gap: 0.3rem; }
+.lure-head { display: flex; align-items: baseline; justify-content: space-between; gap: 0.5rem; }
+.lure-score { font-weight: 800; font-size: 1.1rem; color: var(--danger); font-variant-numeric: tabular-nums; }
+.lure-pending { font-size: 0.8rem; color: var(--ink-soft); }
+.bar {
+  height: 0.6rem;
+  background: var(--rule);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.bar-fill { height: 100%; background: var(--danger); border-radius: 999px; }
+.bar-fill.pending { background: transparent; }
+.delta {
+  justify-self: start;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  background: var(--accent-soft);
+  border-radius: 999px;
+  padding: 0.1rem 0.55rem;
+}
+.delta.good { color: var(--ok); background: var(--ok-soft); }
+.delta.flat { background: var(--rule); }
+.formula {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  background: var(--bubble);
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.7rem;
+  word-break: break-word;
+}
+
+/* ---- 결과 공유 카드 ---- */
+.share-preview {
+  font-family: inherit;
+  font-size: 0.85rem;
+  line-height: 1.65;
+  white-space: pre-wrap;
+  background: var(--bubble);
+  border-radius: 0.5rem;
+  padding: 0.8rem 0.9rem;
+}
+.share-status.ok { color: var(--ok); }
+.share-status.bad { color: var(--danger); }
+
+/* ---- 기관 리포트(합성 데이터) ---- */
+.synthetic-badge {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--danger);
+  background: var(--danger-soft);
+  border: 1px dashed var(--danger);
+  border-radius: 999px;
+  padding: 0.25rem 0.7rem;
+  margin-bottom: 0.75rem;
+}
+.report-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+.report-table caption { text-align: left; margin-bottom: 0.6rem; caption-side: top; }
+.report-table th, .report-table td { padding: 0.5rem 0.35rem; text-align: right; }
+.report-table thead th { font-size: 0.78rem; color: var(--ink-soft); border-bottom: 2px solid var(--ink); }
+.report-table tbody th { text-align: left; font-weight: 700; }
+.report-table tbody tr { border-bottom: 1px solid var(--rule); }
+.report-table .row-muted { color: var(--ink-soft); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .fade-in { animation: rise 0.35s var(--ease-out) both; }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+}

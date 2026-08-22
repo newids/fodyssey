@@ -1,0 +1,18 @@
+{
+  "senior": {
+    "label": "순자 님 (67세, 데모 페르소나)",
+    "literacy_level": 1,
+    "pace": "slow",
+    "format": "step-by-step",
+    "large_text": true,
+    "voice_assist": true
+  },
+  "youth": {
+    "label": "지훈 님 (24세, 데모 페르소나)",
+    "literacy_level": 3,
+    "pace": "fast",
+    "format": "summary-card",
+    "large_text": false,
+    "voice_assist": false
+  }
+}

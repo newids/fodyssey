@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>핵심고객 정의서 — 금융백신(FinVaccine, 가칭)</title>
+<meta name="description" content="금융백신 핵심고객 정의서(ICP) — 타깃 세그먼트 우선순위, 구매 트리거, 바이어 페르소나, Anti-ICP">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23334f7a'/%3E%3Cpath d='M9 16h14M16 9v14' stroke='%23f7f5f0' stroke-width='4'/%3E%3C/svg%3E">
+<style>
+:root {
+  --paper: oklch(97.5% 0.006 85);
+  --ink: oklch(24% 0.015 260);
+  --accent: oklch(48% 0.13 250);
+  --danger: oklch(52% 0.17 25);
+  --card: oklch(99.2% 0.003 85);
+  --rule: oklch(24% 0.015 260 / 0.14);
+  --ink-soft: oklch(24% 0.015 260 / 0.72);
+  --accent-tint: oklch(48% 0.13 250 / 0.08);
+  --danger-tint: oklch(52% 0.17 25 / 0.07);
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+body {
+  font-family: var(--font-sans); background: var(--paper); color: var(--ink);
+  line-height: 1.62; font-size: 1.05rem; border-top: 10px solid var(--ink); word-break: keep-all;
+}
+.wrap { max-width: 900px; margin-inline: auto; padding-inline: clamp(1.1rem, 4vw, 2.5rem); }
+.site-head { border-bottom: 1px solid var(--rule); padding-block: 1.1rem; }
+.site-head .wrap { max-width: 1240px; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.brand { font-weight: 900; font-size: 1.25rem; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+.brand small { font-weight: 500; color: var(--ink-soft); font-size: 0.8rem; margin-left: 0.45rem; }
+.head-links { display: flex; gap: 1.05rem; flex-wrap: wrap; }
+.head-links a { color: var(--accent); font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--accent); padding-bottom: 2px; font-size: 0.95rem; }
+.head-links a:hover { color: var(--danger); border-bottom-color: var(--danger); }
+
+.page-head { padding-block: clamp(2.2rem, 5vw, 4rem) clamp(1.2rem, 3vw, 2rem); }
+.kicker {
+  display: inline-block; font-size: 0.82rem; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent); border-left: 4px solid var(--accent);
+  padding-left: 0.6rem; margin-bottom: 0.9rem;
+}
+h1 { font-size: clamp(1.7rem, 4.2vw, 2.7rem); line-height: 1.2; letter-spacing: -0.02em; font-weight: 900; }
+.page-head p.lede { margin-top: 0.9rem; color: var(--ink-soft); max-width: 64ch; }
+.status {
+  margin-top: 1.1rem; border: 1px solid var(--rule); border-left: 6px solid var(--danger);
+  background: var(--danger-tint); padding: 0.8rem 1rem; font-size: 0.93rem; color: var(--ink-soft); max-width: 70ch;
+}
+
+section { margin-bottom: clamp(2rem, 4vw, 3rem); }
+h2 { font-size: clamp(1.2rem, 2.5vw, 1.55rem); font-weight: 900; letter-spacing: -0.015em; border-top: 5px solid var(--ink); padding-top: 0.9rem; margin-bottom: 0.9rem; display: flex; gap: 0.6rem; align-items: baseline; }
+h2 .no { font-size: 0.85rem; font-weight: 800; color: var(--accent); }
+h3 { font-size: 1.05rem; font-weight: 900; margin: 1.2rem 0 0.5rem; }
+p { margin-bottom: 0.7rem; }
+p.note { color: var(--ink-soft); font-size: 0.92rem; }
+.hero-def {
+  background: var(--card); border: 1px solid var(--rule); border-left: 8px solid var(--accent);
+  padding: clamp(1rem, 2.5vw, 1.5rem); font-size: clamp(1.05rem, 1.7vw, 1.2rem); font-weight: 800; line-height: 1.55;
+}
+ul.plain { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+ul.plain li { padding-left: 1rem; position: relative; }
+ul.plain li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 6px; height: 6px; background: var(--accent); }
+ul.plain.danger li::before { background: var(--danger); }
+ol.std { padding-left: 1.3rem; display: flex; flex-direction: column; gap: 0.5rem; }
+
+.table-scroll { overflow-x: auto; border: 1px solid var(--rule); margin-block: 0.6rem 0.9rem; }
+table { border-collapse: collapse; width: 100%; min-width: 640px; background: var(--card); font-size: 0.94rem; }
+th, td { text-align: left; padding: 0.65rem 0.85rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+thead th { background: var(--ink); color: var(--paper); font-size: 0.84rem; letter-spacing: 0.04em; }
+tbody th { font-weight: 800; }
+.tier1 td, .tier1 th { background: var(--accent-tint); }
+
+pre.diagram {
+  background: var(--card); border: 1px solid var(--rule); padding: 1rem 1.2rem;
+  overflow-x: auto; font-size: 0.85rem; line-height: 1.6; margin-block: 0.6rem 0.9rem;
+}
+.checklist { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; background: var(--card); border: 1px solid var(--rule); padding: 1rem 1.2rem; }
+.checklist li { padding-left: 1.7rem; position: relative; }
+.checklist li::before { content: "☐"; position: absolute; left: 0.2rem; top: 0; font-weight: 800; color: var(--accent); }
+.footnote { border-top: 1px solid var(--rule); padding-block: 1.2rem 0.4rem; color: var(--ink-soft); font-size: 0.9rem; max-width: 75ch; }
+
+.site-foot { border-top: 6px solid var(--ink); margin-top: clamp(2rem, 4vw, 3rem); padding-block: clamp(2rem, 4vw, 3rem); }
+.site-foot .wrap { max-width: 1240px; display: grid; gap: 1rem; }
+.site-foot .team { font-weight: 800; font-size: 1.1rem; }
+.site-foot .team small { display: block; font-weight: 500; color: var(--ink-soft); font-size: 0.9rem; margin-top: 0.2rem; }
+.site-foot .notice { color: var(--ink-soft); font-size: 0.9rem; max-width: 62ch; }
+</style>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="index.html">금융백신<small>FinVaccine, 가칭</small></a>
+    <nav class="head-links" aria-label="관련 문서">
+      <a href="index.html">← 서비스 소개</a>
+      <a href="lean-canvas.html">린 캔버스</a>
+      <a href="value-proposition.html">가치 제안 캔버스</a>
+      <a href="pitch-deck.html">피치덱</a>
+      <a href="vc-proposal.html">사업 제안서</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="page-head">
+    <span class="kicker">Ideal Customer Profile · 2026-08-22</span>
+    <h1>핵심고객 정의서 (ICP)</h1>
+    <p class="lede">누구에게 먼저 가는가, 그리고 누구에게 가지 않는가 — 타깃 선정 기준을 문서화했습니다.</p>
+    <p class="status">본 문서의 고객 정의는 공개 자료 기반 <strong>가설</strong>이며 고객 인터뷰로 검증 전입니다. 특정 기관 유형·과정에 대한 언급은 공개 자료로 확인된 사실의 인용이며, 해당 기관의 도입 의사와 무관합니다.</p>
+  </div>
+
+  <section aria-labelledby="s1">
+    <h2 id="s1"><span class="no">01</span>ICP 한 줄 정의</h2>
+    <p class="hero-def">"디지털·금융 교육 사업을 이미 운영 중이고, 성과 측정과 수료 후 관리가 과제로 남아 있으며, 중장년·고령층 접점 인프라(캠퍼스·센터·강사망)를 보유한 공공·준공공 교육 운영 기관."</p>
+    <p>핵심은 세 조건의 동시 충족입니다: ① 기존 교육 사업 실재 (우리는 신설이 아니라 고도화를 제안합니다) ② 성과 측정 결핍 (핵심 페인) ③ 오프라인 접점 인프라 (조직화 네트워크의 토양).</p>
+  </section>
+
+  <section aria-labelledby="s2">
+    <h2 id="s2"><span class="no">02</span>세그먼트 우선순위 (Tier)</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Tier</th><th>세그먼트</th><th>우선 이유</th><th>진입 경로</th></tr></thead>
+        <tbody>
+          <tr class="tier1"><th>1</th><td><strong>중장년 특화 공공 교육 재단</strong> — 서울시50플러스재단 유형: 권역 캠퍼스·자치구 센터망과 디지털금융교육 강사 양성 체계를 보유한 기관</td><td>ICP 3조건 전부 충족 + 강사 양성·일자리 사업까지 보유 — 조직화 프로그램의 완성형 토양</td><td>파일럿 제안 (1개 기수, 사전·사후 측정)</td></tr>
+          <tr><th>2</th><td>광역·기초지자체 평생교육·어르신 정책 부서 및 산하 기관 (타 시도 중장년 재단 포함)</td><td>Tier 1 성공 사례의 수평 복제 대상 — 예산·인프라 구조 유사</td><td>Tier 1 레퍼런스 확보 후</td></tr>
+          <tr><th>3</th><td>전국망 디지털 교육 사업 운영 주체 (AI디지털배움터 — 지역별 운영기관 위탁 구조)</td><td>전국 확산 단계의 채널</td><td>2~3년차, 지역 운영기관 단위</td></tr>
+          <tr><th>4</th><td>금융기관 — 고령 고객 보호·ESG 담당 부서</td><td>수익성 최고이나 <strong>지불 유인 논리만 확보 — 고객 검증 전</strong></td><td>파일럿 성과 데이터 확보 후</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>향후 12개월의 ICP는 Tier 1 하나입니다.</strong> Tier 2~4는 파이프라인이지 현재 타깃이 아닙니다 — 자원을 분산하지 않습니다.</p>
+  </section>
+
+  <section aria-labelledby="s3">
+    <h2 id="s3"><span class="no">03</span>Tier 1 상세 프로필</h2>
+    <h3>조직 특성</h3>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>속성</th><th>기준</th></tr></thead>
+        <tbody>
+          <tr><th>조직 유형</th><td>지자체 출연 재단·공공 교육 기관 (조례 근거, 시 예산 지원)</td></tr>
+          <tr><th>사업 요건</th><td>디지털·금융 관련 교육 과정을 <strong>현재 운영 중</strong> (신규 개설 설득이 필요한 곳은 제외)</td></tr>
+          <tr><th>인프라 요건</th><td>오프라인 교육 거점(캠퍼스·센터) + 강사망 또는 강사 양성 체계</td></tr>
+          <tr><th>부가 요건 (가점)</th><td>중장년 일자리·사회공헌 활동 사업 보유 (서포터 활동비 재원 경로)</td></tr>
+          <tr><th>규모 감각</th><td>기수 단위 교육 운영 (수십 명 단위 코호트) — 사전·사후 측정이 성립하는 최소 단위</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>구매 트리거 — 이 신호가 보이면 접촉합니다</h3>
+    <ol class="std">
+      <li>디지털·금융 교육 과정의 <strong>신규 기수 모집 공고</strong> — 커리큘럼 개편 시점이 탑재 제안의 적기</li>
+      <li>기관 업무보고·의회 자료에 <strong>성과 지표·사후 관리</strong> 관련 지적 또는 계획 등장</li>
+      <li>고령층 금융피해 예방 관련 <strong>정책 이행 과제</strong> 부여 (금융위 생애주기별 금융교육 방향, 2025.12 이후 지자체 확산 국면)</li>
+      <li>강사 양성과정 수료 기수 배출 직후 — 수료자 활용처가 필요한 시점, 서포터 전환 제안의 적기</li>
+    </ol>
+
+    <h3>의사결정 구조 (추정 — 인터뷰로 검증 예정)</h3>
+    <pre class="diagram">실무 담당자(과장·PM) ── 발굴·검토 ──▶ 팀장·본부장 ── 승인 ──▶ 기관장
+                                          │
+                              시 소관부서 (예산·정책 정합 협의)</pre>
+    <ul class="plain">
+      <li><strong>챔피언</strong> — 교육 사업 실무 담당자: 성과 보고 부담을 직접 지는 사람</li>
+      <li><strong>경제적 구매자</strong> — 본부장·기관장: 기존 예산 내 집행 가능 여부가 관건</li>
+      <li><strong>비토권</strong> — 시 소관부서: 정책 정합·감사 리스크 관점. 정책 근거 · 측정 가능 KPI · 기존 예산 프레임 3요소가 여기를 통과시키는 열쇠</li>
+    </ul>
+
+    <h3>페인 · 성공 기준</h3>
+    <p>페인은 <a href="value-proposition.html">가치 제안 캔버스</a> 캔버스 A와 같습니다: "몇 명 수강" 외 지표 부재 / 교안 갱신 여력 없음 / 수료 후 단절 / 신규 사업 부담.</p>
+    <p><strong>고객이 성공이라 부를 상태</strong> — 기수 종료 시 사전·사후 취약도 개선폭 리포트가 자동으로 나오고, 수료자 일부가 서포터로 활동을 시작하며, 이를 업무보고 1쪽으로 옮길 수 있는 상태.</p>
+  </section>
+
+  <section aria-labelledby="s4">
+    <h2 id="s4"><span class="no">04</span>바이어 페르소나</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th></th><th>P1. 실무 담당자 (챔피언)</th><th>P2. 본부장·소관 공무원 (승인자)</th></tr></thead>
+        <tbody>
+          <tr><th>하루의 관심</th><td>기수 운영·강사 섭외·만족도 조사, 상부 보고 자료</td><td>예산 집행 정합성, 의회·감사 대응, 정책 성과</td></tr>
+          <tr><th>우리에게 묻는 것</th><td>"기존 커리큘럼을 얼마나 바꿔야 하나? 강사가 쓸 수 있나?"</td><td>"예산 항목이 뭐고, 근거 정책이 뭔가? 사고 나면 누가 책임지나?"</td></tr>
+          <tr><th>설득 재료</th><td>강사 교육 2시간 + 기존 과정 탑재형 설계, 대시보드 리포트 샘플</td><td>정책 근거(금융위 생애주기별 금융교육·포용금융), KPI 4종, 기존 사업 고도화 프레임, 가상 환경·실계좌 무접근(안전 설계)</td></tr>
+          <tr><th>실패 지뢰</th><td>강사 부담 증가로 인식되는 것</td><td>신규 예산 요구로 읽히는 것, 개인 금융정보 수집 오해</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">사용자(교육생·서포터)는 구매자가 아니므로 본 문서 범위 외 — <a href="value-proposition.html">가치 제안 캔버스</a> 캔버스 B 참조.</p>
+  </section>
+
+  <section aria-labelledby="s5">
+    <h2 id="s5"><span class="no">05</span>Anti-ICP — 맞지 않는 고객</h2>
+    <ul class="plain danger">
+      <li><strong>교육 인프라가 없는 순수 콘텐츠 구매자</strong> — 접점·강사망이 없으면 조직화 층이 성립하지 않아 차별화가 사라집니다</li>
+      <li><strong>단발 행사·특강 수요</strong> — 사전·사후 측정이 불가능한 1회성 요청 (우리가 대체하려는 바로 그 형태)</li>
+      <li><strong>개인 유료화를 조건으로 거는 파트너</strong> — 개인 무료 원칙과 충돌</li>
+      <li><strong>개인 금융정보 연동을 요구하는 수요</strong> — 안전 설계 원칙(개인 금융정보 미수집) 위반</li>
+      <li>(초기 한정) <strong>금융기관의 선행 도입 요구</strong> — 파일럿 데이터 없이 진입하면 검증 부담이 역전됩니다</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="s6">
+    <h2 id="s6"><span class="no">06</span>적합성 체크리스트 — 제안 전 통과 의무</h2>
+    <ul class="checklist">
+      <li>디지털·금융 교육 과정을 현재 운영 중인가?</li>
+      <li>오프라인 거점 + 강사망(또는 양성 체계)이 있는가?</li>
+      <li>기수 단위 코호트 운영인가 (사전·사후 측정 성립)?</li>
+      <li>기존 예산 프레임 안에서 집행 가능한 구조인가?</li>
+      <li>수료자 활용(일자리·활동 사업) 경로가 있는가? (가점)</li>
+    </ul>
+    <p class="note">4/5 미만이면 Tier 재분류 또는 보류. Anti-ICP 5항 중 1개라도 해당하면 제외합니다.</p>
+  </section>
+
+  <p class="footnote">본 문서의 기관 연계는 협약 체결 전의 제안입니다. 의사결정 구조·트리거 등 가설 항목은 고객 인터뷰와 모니터링으로 검증할 계획입니다. 기준 문서: 전략 확정본 v1.0 · 가치 제안 캔버스 (2026-08-22).</p>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p class="team">팀 Fodyssey<small>Fintech Odyssey</small></p>
+    <p class="notice">본 페이지는 아이디어 소개용 시안이며 서비스 운영 전입니다. 서비스명 "금융백신(FinVaccine)"은 가칭입니다.</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>린 캔버스 — 금융백신(FinVaccine, 가칭)</title>
+<meta name="description" content="금융백신 린 캔버스 — 문제·고객·가치 제안·솔루션·채널·수익·비용·지표·경쟁 우위 9블록">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23334f7a'/%3E%3Cpath d='M9 16h14M16 9v14' stroke='%23f7f5f0' stroke-width='4'/%3E%3C/svg%3E">
+<style>
+:root {
+  --paper: oklch(97.5% 0.006 85);
+  --ink: oklch(24% 0.015 260);
+  --accent: oklch(48% 0.13 250);
+  --danger: oklch(52% 0.17 25);
+  --card: oklch(99.2% 0.003 85);
+  --rule: oklch(24% 0.015 260 / 0.14);
+  --ink-soft: oklch(24% 0.015 260 / 0.72);
+  --accent-tint: oklch(48% 0.13 250 / 0.08);
+  --danger-tint: oklch(52% 0.17 25 / 0.07);
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+body {
+  font-family: var(--font-sans);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.62;
+  font-size: 1.05rem;
+  border-top: 10px solid var(--ink);
+  word-break: keep-all;
+}
+.wrap { max-width: 1240px; margin-inline: auto; padding-inline: clamp(1.1rem, 4vw, 2.5rem); }
+
+.site-head { border-bottom: 1px solid var(--rule); padding-block: 1.1rem; }
+.site-head .wrap { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.brand { font-weight: 900; font-size: 1.25rem; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+.brand small { font-weight: 500; color: var(--ink-soft); font-size: 0.8rem; margin-left: 0.45rem; }
+.back { color: var(--accent); font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--accent); padding-bottom: 2px; }
+.back:hover { color: var(--danger); border-bottom-color: var(--danger); }
+
+.page-head { padding-block: clamp(2.2rem, 5vw, 4rem) clamp(1.4rem, 3vw, 2.4rem); }
+.kicker {
+  display: inline-block; font-size: 0.82rem; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent); border-left: 4px solid var(--accent);
+  padding-left: 0.6rem; margin-bottom: 0.9rem;
+}
+h1 { font-size: clamp(1.8rem, 4.5vw, 3rem); line-height: 1.18; letter-spacing: -0.02em; font-weight: 900; }
+.page-head p.lede { margin-top: 0.9rem; color: var(--ink-soft); max-width: 62ch; }
+
+.canvas { display: grid; gap: 10px; padding-bottom: clamp(2rem, 4vw, 3.5rem); }
+/* 데스크톱: 클래식 린 캔버스 5열 배치 */
+@media (min-width: 1024px) {
+  .canvas {
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-areas:
+      "problem problem solution solution uvp uvp unfair unfair segments segments"
+      "problem problem metrics  metrics  uvp uvp channel channel segments segments"
+      "cost    cost    cost     cost     cost revenue revenue revenue revenue revenue";
+  }
+  .b-problem { grid-area: problem; } .b-solution { grid-area: solution; }
+  .b-metrics { grid-area: metrics; } .b-uvp { grid-area: uvp; }
+  .b-unfair { grid-area: unfair; } .b-channel { grid-area: channel; }
+  .b-segments { grid-area: segments; } .b-cost { grid-area: cost; } .b-revenue { grid-area: revenue; }
+}
+.block {
+  background: var(--card); border: 1px solid var(--rule); border-top: 4px solid var(--ink);
+  padding: clamp(1rem, 2vw, 1.4rem); display: flex; flex-direction: column; gap: 0.6rem;
+}
+.block.tint-accent { border-top-color: var(--accent); background: var(--accent-tint); }
+.block.tint-danger { border-top-color: var(--danger); background: var(--danger-tint); }
+.block h2 { font-size: 1.02rem; font-weight: 900; letter-spacing: -0.01em; display: flex; align-items: baseline; gap: 0.5rem; }
+.block h2 .no {
+  font-size: 0.72rem; font-weight: 800; color: var(--paper); background: var(--ink);
+  border-radius: 999px; padding: 0.1rem 0.5rem; letter-spacing: 0.06em; white-space: nowrap;
+}
+.block.tint-accent h2 .no { background: var(--accent); }
+.block.tint-danger h2 .no { background: var(--danger); }
+.block h2 small { font-weight: 600; color: var(--ink-soft); font-size: 0.78rem; letter-spacing: 0.02em; }
+.block ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; font-size: 0.95rem; }
+.block li { padding-left: 0.95rem; position: relative; }
+.block li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 6px; height: 6px; background: var(--accent); }
+.block.tint-danger li::before { background: var(--danger); }
+.block .src { color: var(--ink-soft); font-size: 0.84rem; }
+.block .uvp-main { font-size: clamp(1.05rem, 1.6vw, 1.25rem); font-weight: 800; line-height: 1.45; letter-spacing: -0.01em; }
+.block .uvp-sub { font-size: 0.95rem; color: var(--ink-soft); }
+.block .quote {
+  border-left: 4px solid var(--accent); padding-left: 0.8rem; font-weight: 700;
+  font-size: 0.95rem; line-height: 1.5;
+}
+.tag {
+  display: inline-block; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.05em;
+  border: 1.5px solid var(--ink); padding: 0.08rem 0.5rem; border-radius: 999px; white-space: nowrap;
+}
+.footnote { border-top: 1px solid var(--rule); padding-block: 1.2rem 0.4rem; color: var(--ink-soft); font-size: 0.9rem; max-width: 75ch; }
+
+.site-foot { border-top: 6px solid var(--ink); margin-top: clamp(2rem, 4vw, 3rem); padding-block: clamp(2rem, 4vw, 3rem); }
+.site-foot .wrap { display: grid; gap: 1rem; }
+.site-foot .team { font-weight: 800; font-size: 1.1rem; }
+.site-foot .team small { display: block; font-weight: 500; color: var(--ink-soft); font-size: 0.9rem; margin-top: 0.2rem; }
+.site-foot .notice { color: var(--ink-soft); font-size: 0.9rem; max-width: 62ch; }
+</style>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="index.html">금융백신<small>FinVaccine, 가칭</small></a>
+    <a class="back" href="index.html">← 서비스 소개로</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="page-head">
+    <span class="kicker">Lean Canvas · 2026-08-22</span>
+    <h1>린 캔버스</h1>
+    <p class="lede">기존 교육 인프라에 꽂는 AI 면역 엔진, 수료자를 지역 예방 조직으로 바꾸는 집단면역 네트워크 — 사업 모델을 9블록으로 요약했습니다. 모든 수치는 기관·기준 시점을 병기합니다.</p>
+  </div>
+
+  <div class="canvas">
+    <section class="block tint-danger b-problem" aria-labelledby="lc-problem">
+      <h2 id="lc-problem"><span class="no">①</span>문제 <small>Problem</small></h2>
+      <ul>
+        <li>전화금융사기 피해 <strong>2025년 1–7월 누적 7,766억 원</strong> <span class="src">(경찰청, 2025)</span></li>
+        <li>피해액의 <strong>53%가 50대 이상</strong> — 32%(2023) → 47%(2024) → 53%(2025년 1분기) <span class="src">(경찰청 국가수사본부, 연도별 발표 집계)</span></li>
+        <li>수법은 생성형 AI로 주 단위 변형 — 대응은 1회성 지식 교육과 사후 차단 앱뿐. 진단·개인화·진단-학습 연결 전부 공백 <span class="src">(팀 자체 경쟁 서비스 조사, 2026-08-17)</span></li>
+        <li>격차의 본질은 역량 — 취약계층 접근 96.5% vs 역량 65.6% <span class="src">(NIA 2024 디지털정보격차 실태조사)</span></li>
+      </ul>
+      <p class="src"><strong>기존 대안</strong> — 공공 금융교육(콘텐츠·1회성) · 탐지차단 앱(단말·사후) · 기업용 모의훈련(조직 대상 한정)</p>
+    </section>
+
+    <section class="block b-solution" aria-labelledby="lc-solution">
+      <h2 id="lc-solution"><span class="no">④</span>솔루션 <small>Solution</small></h2>
+      <ul>
+        <li><strong>수법 인텔리전스</strong> — 공개 수법 데이터를 AI가 훈련 시나리오로 자동 변환</li>
+        <li><strong>취약도 진단</strong> — 훈련 행동의 Rule-based Scoring(재현·감사 가능) → 데이터 축적 후 ML 고도화</li>
+        <li><strong>적응형 훈련 + 조직화</strong> — 취약 패턴별 집중 훈련(LLM+RAG). 훈련 수료자가 '금융안전 서포터'가 되어 이웃을 지키고, 서포터의 제보가 다시 훈련이 됩니다.</li>
+      </ul>
+    </section>
+
+    <section class="block b-metrics" aria-labelledby="lc-metrics">
+      <h2 id="lc-metrics"><span class="no">⑧</span>핵심 지표 <small>Key Metrics</small></h2>
+      <ul>
+        <li><strong>이수자 수 · 취약도 개선폭(사전·사후) · 서포터 배출 수 · 의심사례 제보 건수</strong></li>
+        <li class="src">선례: 과기정통부·KISA 모의훈련(2026 상반기 630개사·25.5만 명). 재참여 우위 수치는 디도스 대응 훈련 지표 — 직접 비교하지 않음</li>
+        <li class="src">피해 감소액 추정치는 산출 근거 확보 전까지 미제시</li>
+      </ul>
+    </section>
+
+    <section class="block tint-accent b-uvp" aria-labelledby="lc-uvp">
+      <h2 id="lc-uvp"><span class="no">③</span>고유 가치 제안 <small>UVP</small></h2>
+      <p class="uvp-main">금융백신 — 사기를 차단하는 앱은 많습니다. 사기에 속지 않는 사람을 만드는 인프라는 없습니다.</p>
+      <p class="uvp-sub">기존 교육 인프라에 꽂는 AI 면역 엔진, 수료자를 지역 예방 조직으로 바꾸는 집단면역 네트워크</p>
+      <p class="quote">차단은 항생제, 훈련은 백신입니다. 우리는 개인 접종(진단·훈련)에서 집단면역(조직화)까지 갑니다.</p>
+    </section>
+
+    <section class="block b-unfair" aria-labelledby="lc-unfair">
+      <h2 id="lc-unfair"><span class="no">⑨</span>경쟁 우위 <small>Unfair Advantage</small></h2>
+      <ul>
+        <li><strong>데이터 플라이휠</strong> — 훈련이 만드는 개인 단위 취약도 데이터(기존 피해 통계는 사후·집계) + 서포터 제보 환류. 훈련과 조직화를 하나의 데이터 루프로 묶은 사례는 조사 범위에서 관찰되지 않음 <span class="src">(팀 자체 조사, 2026-08-17)</span></li>
+        <li><strong>기존 인프라 위의 네트워크</strong> — 실재하는 과정·캠퍼스망 위에 얹는 구조. 서포터·제보 이력은 후발 주자가 복제하기 어려움</li>
+        <li class="src">정책 정합: 금융위 생애주기별 금융교육('금융역량', 2025.12) · 포용금융 전략 추진단(2026.5~)</li>
+      </ul>
+    </section>
+
+    <section class="block b-channel" aria-labelledby="lc-channel">
+      <h2 id="lc-channel"><span class="no">⑤</span>채널 <small>Channels</small></h2>
+      <ul>
+        <li>기존 공공 교육 채널 탑재 — 서울시50플러스재단 캠퍼스 5개소·자치구 센터 14개소 → 서울런4050 → AI디지털배움터(전국망)</li>
+        <li>금융기관 고객 교육·창구 연계 (파일럿 레퍼런스 확보 후)</li>
+      </ul>
+    </section>
+
+    <section class="block b-segments" aria-labelledby="lc-segments">
+      <h2 id="lc-segments"><span class="no">②</span>고객군 <small>Customer Segments</small></h2>
+      <ul>
+        <li><span class="tag">구매 1차</span> 공공 교육 운영 기관 — 지자체·재단 (서울시50플러스재단 등)</li>
+        <li><span class="tag">구매 2차</span> 금융기관 — 은행·보험·증권 (고령 고객 보호 의무 대응)</li>
+        <li><span class="tag">사용자</span> 중장년·고령층 교육생 → 전 국민 (무료)</li>
+        <li><span class="tag">얼리어답터</span> 50플러스 북부캠퍼스 디지털금융교육 강사 양성과정 수료자 — 기수당 25명 (2026년 운영 확인)</li>
+      </ul>
+    </section>
+
+    <section class="block b-cost" aria-labelledby="lc-cost">
+      <h2 id="lc-cost"><span class="no">⑦</span>비용 구조 <small>Cost Structure</small></h2>
+      <ul>
+        <li>엔진 개발·운영 — LLM API 사용량·인프라</li>
+        <li>시나리오 검수 — AI 1차 검증 + 사람 검수 (안전 설계)</li>
+        <li>서포터 인증 체계 설계·운영 지원 — 활동비 재원은 기존 일자리 사업 틀 활용 제안 (재단 정책 판단 사항)</li>
+      </ul>
+    </section>
+
+    <section class="block tint-accent b-revenue" aria-labelledby="lc-revenue">
+      <h2 id="lc-revenue"><span class="no">⑥</span>수익 흐름 <small>Revenue Streams</small></h2>
+      <ul>
+        <li><strong>B2G 위탁·라이선스</strong> — 기존 교육 사업의 성과 측정·고도화 (신규 예산이 아닌 사업 고도화 예산)</li>
+        <li><strong>B2B 좌석 라이선스·API 과금</strong> — 금융기관: 사고 예방 = 배상·상담 비용 절감, 보호 의무, ESG (지불 유인 논리만 확보 — 고객 검증 전)</li>
+        <li><strong>데이터 구독</strong> — 익명화 지역·세그먼트별 취약도 인덱스 리포트</li>
+        <li class="src">C(개인) 무료 · 금융상품 판매·중개 없음 · 단가·매출 추정치는 근거 확보 전까지 미제시</li>
+      </ul>
+    </section>
+  </div>
+
+  <p class="footnote">본 캔버스의 기관 연계는 협약 체결 전의 제안입니다. 기준 문서: 전략 확정본 v1.0 · PROJECT_BRIEF v1.0 (2026-08-22).</p>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p class="team">팀 Fodyssey<small>Fintech Odyssey</small></p>
+    <p class="notice">본 페이지는 2026 제9회 핀테크 아이디어 공모전 출품 아이디어 소개용 시안이며 서비스 운영 전입니다.</p>
+  </div>
+</footer>
+</body>
+</html>

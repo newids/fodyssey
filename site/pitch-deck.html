@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23334f7a'/%3E%3Cpath d='M9 16h14M16 9v14' stroke='%23f7f5f0' stroke-width='4'/%3E%3C/svg%3E">
+<title>피치덱 — 금융백신(FinVaccine, 가칭) | 팀 Fodyssey</title>
+<meta name="description" content="기존 교육 인프라에 꽂는 AI 면역 엔진, 수료자를 지역 예방 조직으로 바꾸는 집단면역 네트워크.">
+<style>
+/* ─────────────────────────────────────────────
+   금융백신 피치덱 — 단일 HTML, 외부 의존성 0
+   브랜드 토큰: deck-production 스킬 기본값
+   ───────────────────────────────────────────── */
+:root{
+  --paper: oklch(97.5% 0.006 85);
+  --ink:   oklch(24% 0.015 260);
+  --accent:oklch(48% 0.13 250);
+  --danger:oklch(52% 0.17 25);
+  --card:  oklch(99.2% 0.003 85);
+  --rule:  oklch(24% 0.015 260 / 0.14);
+  --muted: oklch(46% 0.02 260);
+  --seed:  oklch(46% 0.11 158);
+  --ink-paper: oklch(96% 0.008 85);
+  --ink-dim:   oklch(78% 0.02 260);
+
+  /* 뷰포트 폭·높이 중 좁은 쪽에 맞춘 기준 단위 — 가로 모바일 오버플로 방지 */
+  --unit: min(1.02vw, 1.72vh);
+
+  --t-hero:   clamp(2.1rem, calc(6.6 * var(--unit)), 5.6rem);
+  --t-stat:   clamp(1.7rem, calc(4.6 * var(--unit)), 4rem);
+  --t-head:   clamp(1.15rem, calc(2.55 * var(--unit)), 2.3rem);
+  --t-lead:   clamp(0.9rem, calc(1.7 * var(--unit)), 1.5rem);
+  --t-body:   clamp(0.76rem, calc(1.26 * var(--unit)), 1.08rem);
+  --t-small:  clamp(0.66rem, calc(1.04 * var(--unit)), 0.88rem);
+  --t-kicker: clamp(0.6rem, calc(0.92 * var(--unit)), 0.8rem);
+
+  --gap:  clamp(0.45rem, calc(1.3 * var(--unit)), 1.5rem);
+  --pad:  clamp(1rem, calc(3.2 * var(--unit)), 3.2rem);
+  --hud:  clamp(2rem, calc(4.4 * var(--unit)), 3.4rem);
+  --r:    clamp(4px, calc(0.55 * var(--unit)), 10px);
+}
+/* 짧은 뷰포트(가로 모바일 등): 글자가 아니라 여백을 줄인다 */
+@media (max-height:520px){
+  :root{
+    --gap: clamp(0.3rem, calc(1 * var(--unit)), 0.8rem);
+    --pad: clamp(0.7rem, calc(2.2 * var(--unit)), 1.6rem);
+    --hud: 1.9rem;
+  }
+}
+*,*::before,*::after{ box-sizing:border-box; }
+html,body{ margin:0; height:100%; overflow:hidden; }
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",system-ui,sans-serif;
+  font-size:var(--t-body); line-height:1.5;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  -webkit-print-color-adjust:exact; print-color-adjust:exact;
+}
+h1,h2,h3,p,ul,ol,figure,blockquote{ margin:0; }
+ul,ol{ padding:0; list-style:none; }
+b,strong{ font-weight:800; }
+
+/* ── 덱 골격 ─────────────────────────────── */
+.deck{ height:100dvh; overflow:hidden; position:relative; }
+.track{
+  will-change:transform;
+  transform:translate3d(0, calc(var(--i,0) * -100dvh), 0);
+  transition:transform 620ms cubic-bezier(.16,1,.3,1);
+}
+.slide{
+  height:100dvh; overflow:hidden; position:relative;
+  border-top:0.4rem solid var(--ink);
+}
+.frame{
+  height:100%; width:min(1500px,100%); margin-inline:auto;
+  padding:var(--pad) var(--pad) calc(var(--pad) + var(--hud));
+  display:flex; flex-direction:column; gap:var(--gap);
+}
+.frame > *{ min-height:0; }
+.body{ flex:1 1 auto; min-height:0; overflow:hidden; }
+
+/* 진입 모션 (JS 활성 시에만) */
+body.js .slide:not(.is-active) .frame > *{ opacity:0; transform:translateY(10px); }
+body.js .frame > *{ transition:opacity 480ms ease, transform 620ms cubic-bezier(.16,1,.3,1); }
+body.js .slide.is-active .frame > *{ opacity:1; transform:none; }
+body.js .slide.is-active .frame > *:nth-child(2){ transition-delay:70ms; }
+body.js .slide.is-active .frame > *:nth-child(3){ transition-delay:140ms; }
+body.js .slide.is-active .frame > *:nth-child(4){ transition-delay:210ms; }
+
+/* ── 공통 컴포넌트 ───────────────────────── */
+.rail{
+  display:flex; align-items:baseline; justify-content:space-between; gap:var(--gap);
+  padding-bottom:calc(var(--gap) * .5); border-bottom:1px solid var(--rule);
+}
+.kicker{
+  font-size:var(--t-kicker); font-weight:800; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--accent);
+}
+.kicker .no{ color:var(--muted); margin-right:.6em; font-variant-numeric:tabular-nums; }
+.tag{
+  font-size:var(--t-kicker); letter-spacing:.06em; color:var(--muted);
+  white-space:nowrap; border:1px solid var(--rule); border-radius:99px;
+  padding:.25em .75em;
+}
+.head{
+  font-size:var(--t-head); font-weight:800; line-height:1.32; letter-spacing:-.02em;
+  text-wrap:balance;
+}
+.head .hl{ color:var(--danger); }
+.head .hl-a{ color:var(--accent); }
+.sub{ font-size:var(--t-lead); color:var(--muted); line-height:1.45; }
+.foot{ font-size:var(--t-small); color:var(--muted); line-height:1.45; }
+.foot .canon{ color:var(--ink); font-weight:700; }
+
+.grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:var(--gap); height:100%; }
+.grid-2.wide-l{ grid-template-columns:1.15fr 1fr; }
+.grid-2.wide-r{ grid-template-columns:1fr 1.25fr; }
+.grid-3{ display:grid; grid-template-columns:repeat(3,1fr); gap:var(--gap); height:100%; }
+.grid-3 > .card{ justify-content:flex-start; }
+.col{ display:flex; flex-direction:column; justify-content:center; gap:var(--gap); min-height:0; }
+
+.card{
+  background:var(--card); border:1px solid var(--rule); border-radius:var(--r);
+  padding:calc(var(--gap) * 1.1); display:flex; flex-direction:column; justify-content:center;
+  gap:calc(var(--gap) * .5); min-height:0; overflow:hidden;
+}
+.card.flush{ flex:1 1 auto; }
+.card .lab{
+  font-size:var(--t-kicker); font-weight:800; letter-spacing:.14em; color:var(--muted);
+  text-transform:uppercase;
+}
+.card h3{ font-size:var(--t-lead); font-weight:800; letter-spacing:-.01em; line-height:1.25; }
+.card p{ font-size:var(--t-body); color:var(--ink); }
+.card .note{ font-size:var(--t-small); color:var(--muted); }
+.card .seg{ display:flex; flex-direction:column; gap:.2em; }
+.card .seg.div{ border-top:1px solid var(--rule); padding-top:calc(var(--gap) * .7); margin-top:calc(var(--gap) * .35); }
+.card.accent{ border-left:.28rem solid var(--accent); }
+.card.danger{ border-left:.28rem solid var(--danger); }
+.card.seed{ border-left:.28rem solid var(--seed); }
+
+.chip{
+  display:inline-block; font-size:var(--t-small); border:1px solid var(--rule);
+  border-radius:99px; padding:.24em .8em; color:var(--muted); background:var(--card);
+}
+.chip.warn{ color:var(--danger); border-color:oklch(52% 0.17 25 / .35); }
+.chip.on{ color:var(--accent); border-color:oklch(48% 0.13 250 / .35); }
+
+.src{ font-size:var(--t-small); color:var(--muted); }
+.num{ font-variant-numeric:tabular-nums; letter-spacing:-.03em; }
+
+/* 스탯 타이포 */
+.stat{ display:flex; flex-direction:column; gap:.2em; }
+.stat .lead{ font-size:var(--t-lead); font-weight:700; color:var(--ink); }
+.stat .fig{
+  font-size:var(--t-stat); font-weight:900; line-height:1.02; letter-spacing:-.045em;
+  color:var(--danger); font-variant-numeric:tabular-nums;
+}
+.stat .fig.a{ color:var(--accent); }
+
+/* 막대 추이 */
+.bars{ display:flex; align-items:stretch; gap:var(--gap); height:100%; min-height:0; }
+.bar{ flex:1; display:flex; flex-direction:column; gap:.4em; min-height:0; }
+.bar .well{ flex:1 1 auto; min-height:0; display:flex; align-items:flex-end; }
+.bar .fill{
+  width:100%;
+  background:oklch(52% 0.17 25 / .18); border-top:.22rem solid var(--danger); border-radius:2px 2px 0 0;
+  display:flex; align-items:flex-start; justify-content:center; padding-top:.3em;
+}
+.bar .v{ font-size:var(--t-lead); font-weight:900; color:var(--danger); font-variant-numeric:tabular-nums; }
+.bar .yr{ font-size:var(--t-small); color:var(--muted); text-align:center; }
+
+/* 표 형태 행 */
+.rows{ display:flex; flex-direction:column; gap:calc(var(--gap) * .55); min-height:0; }
+.row{
+  display:grid; grid-template-columns:1.05fr 1fr; gap:var(--gap); align-items:center;
+  border-bottom:1px solid var(--rule); padding-bottom:calc(var(--gap) * .5);
+}
+.row .who{ font-weight:700; }
+.row .who small{ display:block; font-weight:500; font-size:var(--t-small); color:var(--muted); }
+.row .gap-x{ color:var(--danger); font-weight:700; font-size:var(--t-body); }
+
+/* 2층 구조 밴드 */
+.stack{ display:flex; flex-direction:column; gap:calc(var(--gap) * .6); height:100%; min-height:0; }
+.band{
+  flex:1 1 0; min-height:0; border-radius:var(--r); padding:calc(var(--gap) * .95);
+  display:flex; flex-direction:column; justify-content:center; gap:.3em; overflow:hidden;
+}
+.band .lv{ font-size:var(--t-kicker); font-weight:800; letter-spacing:.14em; }
+.band h3{ font-size:var(--t-lead); font-weight:800; letter-spacing:-.01em; }
+.band p{ font-size:var(--t-small); }
+.band.l2{ background:oklch(46% 0.11 158 / .1); border:1px solid oklch(46% 0.11 158 / .35); }
+.band.l2 .lv{ color:var(--seed); }
+.band.l1{ background:oklch(48% 0.13 250 / .1); border:1px solid oklch(48% 0.13 250 / .35); }
+.band.l1 .lv{ color:var(--accent); }
+.band.base{ background:var(--card); border:1px dashed var(--rule); flex:0 0 auto; }
+.band.base .lv{ color:var(--muted); }
+.band.base p{ color:var(--muted); }
+
+.quote{
+  border-left:.28rem solid var(--accent); padding-left:calc(var(--gap) * .9);
+  font-size:var(--t-lead); font-weight:800; line-height:1.4; letter-spacing:-.015em;
+}
+
+/* 플라이휠 */
+.flow{ display:grid; grid-template-columns:repeat(4,1fr); gap:calc(var(--gap) * 1.1); align-items:stretch; }
+.step{
+  background:var(--card); border:1px solid var(--rule); border-radius:var(--r);
+  padding:calc(var(--gap) * .9); display:flex; flex-direction:column; gap:.35em; position:relative;
+}
+.step .n{
+  font-size:var(--t-kicker); font-weight:900; color:var(--seed); letter-spacing:.1em;
+}
+.step h3{ font-size:var(--t-body); font-weight:800; line-height:1.3; }
+.step p{ font-size:var(--t-small); color:var(--muted); }
+.step:not(:last-child)::after{
+  content:"→"; position:absolute; right:calc(var(--gap) * -.55); top:50%;
+  transform:translate(50%,-50%); color:var(--seed); font-weight:900;
+  font-size:var(--t-body); line-height:1;
+}
+.loop{
+  border:1px dashed oklch(46% 0.11 158 / .5); border-radius:var(--r);
+  padding:calc(var(--gap) * .8); font-size:var(--t-body); color:var(--seed); font-weight:700;
+  background:oklch(46% 0.11 158 / .07);
+}
+
+/* 로드맵 */
+.tl{ display:grid; grid-template-columns:repeat(3,1fr); gap:var(--gap); height:100%; align-items:center; }
+.tl-item{
+  border-top:.28rem solid var(--accent); padding-top:calc(var(--gap) * .7);
+  display:flex; flex-direction:column; gap:calc(var(--gap) * .45); min-height:0;
+}
+.tl-item:nth-child(2){ border-top-color:oklch(48% 0.13 250 / .6); }
+.tl-item:nth-child(3){ border-top-color:oklch(48% 0.13 250 / .3); }
+.tl-item .when{ font-size:var(--t-kicker); font-weight:800; letter-spacing:.12em; color:var(--accent); }
+.tl-item h3{ font-size:var(--t-lead); font-weight:800; line-height:1.25; letter-spacing:-.01em; }
+.tl-item ul li{ font-size:var(--t-small); padding-left:.8em; text-indent:-.8em; color:var(--ink); }
+.tl-item ul li::before{ content:"· "; color:var(--muted); }
+
+/* KPI */
+.kpi{ display:grid; grid-template-columns:1fr 1fr; gap:calc(var(--gap) * .6); }
+.kpi li{
+  background:var(--card); border:1px solid var(--rule); border-radius:var(--r);
+  padding:calc(var(--gap) * .8); display:flex; flex-direction:column; gap:.15em;
+}
+.kpi .k{ font-size:var(--t-kicker); font-weight:900; color:var(--accent); font-variant-numeric:tabular-nums; }
+.kpi .t{ font-size:var(--t-body); font-weight:700; line-height:1.3; }
+
+.list li{ font-size:var(--t-body); padding-left:.9em; text-indent:-.9em; }
+.list li + li{ margin-top:calc(var(--gap) * .45); }
+.list li::before{ content:"— "; color:var(--accent); font-weight:800; }
+.list.s li{ font-size:var(--t-small); color:var(--muted); }
+
+/* ── 어두운 슬라이드 (표지·클로징) ───────── */
+.slide.dark{
+  background:var(--ink); color:var(--ink-paper); border-top-color:var(--accent);
+}
+.slide.dark::before{
+  content:""; position:absolute; inset:0; pointer-events:none; opacity:.5;
+  background-image:radial-gradient(oklch(96% 0.008 85 / .16) 1px, transparent 1.4px);
+  background-size:calc(2.4 * var(--unit)) calc(2.4 * var(--unit));
+  -webkit-mask-image:radial-gradient(120% 90% at 88% 12%, #000 0%, transparent 62%);
+          mask-image:radial-gradient(120% 90% at 88% 12%, #000 0%, transparent 62%);
+}
+.slide.dark .frame{ position:relative; z-index:1; }
+.slide.dark .rail{ border-bottom-color:oklch(96% 0.008 85 / .18); }
+.slide.dark .kicker{ color:oklch(72% 0.12 250); }
+.slide.dark .tag{ color:var(--ink-dim); border-color:oklch(96% 0.008 85 / .22); }
+.slide.dark .sub,.slide.dark .foot,.slide.dark .src{ color:var(--ink-dim); }
+.slide.dark .card{ background:oklch(30% 0.02 260); border-color:oklch(96% 0.008 85 / .16); }
+.slide.dark .card h3,.slide.dark .card p{ color:var(--ink-paper); }
+.slide.dark .card .note{ color:var(--ink-dim); }
+.slide.dark .quote{ border-left-color:oklch(72% 0.12 250); }
+
+.cover{ display:flex; flex-direction:column; justify-content:flex-start; gap:calc(var(--gap) * 1.1); }
+.cover .wordmark{ margin-top:auto; }
+.cover .foot{ margin-top:auto; }
+.wordmark{
+  font-size:var(--t-hero); font-weight:900; line-height:.98; letter-spacing:-.05em;
+}
+.wordmark .mk{
+  display:inline-block; font-size:var(--t-small); font-weight:700; letter-spacing:.02em;
+  color:var(--ink-dim); vertical-align:super; margin-left:.35em;
+}
+.tagline{
+  font-size:var(--t-lead); font-weight:700; line-height:1.45; max-width:44ch;
+  border-left:.28rem solid oklch(72% 0.12 250); padding-left:calc(var(--gap) * .9);
+}
+.closing-line{
+  font-size:clamp(1.3rem, calc(3.2 * var(--unit)), 2.8rem); font-weight:900;
+  line-height:1.32; letter-spacing:-.025em; text-wrap:balance;
+}
+
+/* ── HUD (진행 표시·내비게이션) ──────────── */
+.hud{
+  position:fixed; left:0; right:0; bottom:0; z-index:20;
+  display:flex; align-items:center; gap:var(--gap);
+  padding:calc(var(--gap) * .5) var(--pad); height:var(--hud);
+  background:linear-gradient(to top, oklch(97.5% 0.006 85 / .96), oklch(97.5% 0.006 85 / 0));
+}
+.hud[data-dark="1"]{ background:linear-gradient(to top, oklch(24% 0.015 260 / .96), oklch(24% 0.015 260 / 0)); }
+.hud[data-dark="1"] .count{ color:var(--ink-dim); }
+.hud[data-dark="1"] .dot{ background:oklch(96% 0.008 85 / .3); }
+.hud[data-dark="1"] .dot[aria-current="true"]{ background:oklch(72% 0.12 250); }
+.hud[data-dark="1"] .meter{ background:oklch(96% 0.008 85 / .2); }
+.count{ font-size:var(--t-kicker); font-weight:800; color:var(--muted); font-variant-numeric:tabular-nums; letter-spacing:.1em; }
+.dots{ display:flex; gap:.42em; }
+.dot{
+  width:.62em; height:.62em; padding:0; border:0; border-radius:99px; cursor:pointer;
+  background:var(--rule); transition:background 200ms ease, transform 200ms ease;
+}
+.dot:hover{ transform:scale(1.25); background:var(--muted); }
+.dot[aria-current="true"]{ background:var(--accent); transform:scale(1.25); }
+.dot:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+.meter{ flex:1; height:2px; background:var(--rule); border-radius:99px; overflow:hidden; }
+.meter i{ display:block; height:100%; background:var(--accent); width:10%; transition:width 480ms cubic-bezier(.16,1,.3,1); }
+.hint{ font-size:var(--t-kicker); color:var(--muted); white-space:nowrap; }
+@media (max-width:640px){ .hint{ display:none; } }
+
+/* ── 접근성 · 인쇄 ───────────────────────── */
+@media (prefers-reduced-motion:reduce){
+  .track,.meter i,body.js .frame > *,.dot{ transition:none !important; }
+  body.js .slide:not(.is-active) .frame > *{ opacity:1; transform:none; }
+}
+@media print{
+  @page{ size:A4 landscape; margin:0; }
+  html,body,.deck{ height:auto; overflow:visible; }
+  .track{ transform:none !important; }
+  .slide{ height:100vh; break-after:page; page-break-after:always; }
+  .slide:last-child{ break-after:auto; page-break-after:auto; }
+  .frame{ padding-bottom:var(--pad); }
+  body.js .slide .frame > *{ opacity:1 !important; transform:none !important; }
+  .hud{ display:none !important; }
+}
+</style>
+</head>
+<body>
+<main class="deck" id="deck">
+  <div class="track" id="track">
+
+    <!-- 1 · 표지 ─ 심는 문장: 차단이 아니라 면역이다 -->
+    <section class="slide dark" aria-label="1. 표지">
+      <div class="frame cover">
+        <header class="rail">
+          <span class="kicker"><span class="no">01</span>팀 Fodyssey (Fintech Odyssey)</span>
+          <span class="tag">Pitch Deck · 2026</span>
+        </header>
+        <h1 class="wordmark">금융백신<span class="mk">(FinVaccine, 가칭)</span></h1>
+        <p class="tagline">금융백신 — 사기를 차단하는 앱은 많습니다. 사기에 속지 않는 사람을 만드는 인프라는 없습니다.</p>
+        <p class="foot">아이디어 소개용 시안 · 서비스 운영 전 · "금융백신"은 가칭</p>
+      </div>
+    </section>
+
+    <!-- 2 · 문제 ─ 심는 문장: 피해는 폭증 중이고, 절반 이상이 중장년·고령층에 꽂힌다 -->
+    <section class="slide" aria-label="2. 문제">
+      <div class="frame">
+        <header class="rail">
+          <span class="kicker"><span class="no">02</span>문제</span>
+        </header>
+        <h2 class="head">피해는 <span class="hl">폭증</span> 중이고, 그 절반 이상이 <span class="hl">중장년·고령층</span>에 꽂히고 있습니다.</h2>
+        <div class="body">
+          <div class="grid-2 wide-l">
+            <div class="col">
+              <div class="card danger flush">
+                <p class="stat">
+                  <span class="lead">2025년 1–7월 전화금융사기 피해액</span>
+                  <span class="fig num">7,766억 원</span>
+                  <span class="src">(경찰청, 2025)</span>
+                </p>
+                <p class="note">2025년 1분기에만 3,116억 원 — 전년 동기 대비 2.2배, 건당 평균 5,301만 원<br><span class="src">(경찰청 국가수사본부 발표, 세계일보 보도, 2025)</span></p>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card flush">
+                <span class="lab">피해액 중 50대 이상 비중</span>
+                <div class="bars" style="flex:1 1 auto;">
+                  <div class="bar"><div class="well"><div class="fill" style="height:60%"><span class="v num">32%</span></div></div><span class="yr">2023</span></div>
+                  <div class="bar"><div class="well"><div class="fill" style="height:82%"><span class="v num">47%</span></div></div><span class="yr">2024</span></div>
+                  <div class="bar"><div class="well"><div class="fill" style="height:100%"><span class="v num">53%</span></div></div><span class="yr">2025년 1분기</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="foot"><span class="canon">피해액의 53%가 50대 이상 — 32%(2023) → 47%(2024) → 53%(2025년 1분기) (경찰청 국가수사본부, 연도별 발표 집계)</span> · 피해액 관점 지표이며 연령별 건수와 별개입니다.</footer>
+      </div>
+    </section>
+
+    <!-- 3 · 왜 지금 ─ 심는 문장: 수법은 주 단위로 변하는데 대응은 1회성 지식과 사후 차단뿐 -->
+    <section class="slide" aria-label="3. 왜 지금, 왜 기존 대응이 못 막나">
+      <div class="frame">
+        <header class="rail">
+          <span class="kicker"><span class="no">03</span>왜 지금 · 왜 못 막나</span>
+        </header>
+        <h2 class="head">수법은 생성형 AI로 <span class="hl">주 단위 변형</span>되는데, 대응은 여전히 <span class="hl">1회성 지식 교육과 사후 차단</span>뿐입니다.</h2>
+        <div class="body">
+          <div class="grid-2 wide-r">
+            <div class="col">
+              <div class="card danger flush">
+                <div class="seg">
+                  <span class="lab">수법은 고도화</span>
+                  <p>기관사칭형이 전체 피해의 <b class="num">51%</b>, 실제 기관 전화번호 <b class="num">80여 개</b>를 목록화하는 수준</p>
+                  <p class="src">(경찰청 발표 인용 보도, 2025)</p>
+                </div>
+                <div class="seg div">
+                  <span class="lab">원인은 기기가 아니라 역량</span>
+                  <p>취약계층 디지털 접근 <b class="num">96.5%</b> · 활용 <b class="num">80.0%</b> · <b class="num">역량 65.6%</b></p>
+                  <p class="src">(NIA 2024 디지털정보격차 실태조사)</p>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card flush">
+                <span class="lab">기존 대응의 구조적 공백</span>
+                <div class="rows" style="flex:1 1 auto; justify-content:space-around;">
+                  <div class="row">
+                    <span class="who">금감원 e-금융교육센터 · AI디지털배움터<small>콘텐츠 제공, 과정 단위</small></span>
+                    <span class="gap-x">진단 없음 · 개인화 없음 · 1회성</span>
+                  </div>
+                  <div class="row">
+                    <span class="who">시티즌코난 등 탐지·차단 앱<small>단말·거래 보호 (사후)</small></span>
+                    <span class="gap-x">사람의 판단력은 키우지 않음</span>
+                  </div>
+                  <div class="row" style="border-bottom:0;">
+                    <span class="who">서울시 찾아가는 금융사기 예방 교육<small>체험형 대면 교육</small></span>
+                    <span class="gap-x">행사 단위 1회성 · 사후 관리 없음</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="foot">4축 — 진단 유무 · 개인화 단위 · 진단–학습 연결 · 무엇을 지키는가. <b>조사 범위에서 네 축 전부를 채우는 서비스는 확인되지 않았습니다.</b> (팀 자체 경쟁 서비스 조사, 2026-08-17)</footer>
+      </div>
+    </section>
+
+    <!-- 4 · 솔루션 ─ 심는 문장: 개인 접종에서 집단면역까지, 기존 인프라에 꽂는 2층 구조 -->
+    <section class="slide" aria-label="4. 솔루션">
+      <div class="frame">
+        <header class="rail">
+          <span class="kicker"><span class="no">04</span>솔루션</span>
+        </header>
+        <h2 class="head">기존 교육 인프라에 꽂는 AI 면역 엔진, 수료자를 지역 예방 조직으로 바꾸는 집단면역 네트워크</h2>
+        <div class="body">
+          <div class="grid-2 wide-r">
+            <div class="col">
+              <blockquote class="quote">차단은 항생제, 훈련은 백신입니다. 우리는 개인 접종(진단·훈련)에서 집단면역(조직화)까지 갑니다.</blockquote>
+              <div class="card flush">
+                <span class="lab">정체성</span>
+                <p>본체는 <b>금융 소비자 보호 인프라 SaaS</b> — 금융사·기관의 구매 대상이 되는 리스크 감축 자산입니다. 교육은 전달 채널이지 정체성이 아닙니다.</p>
+                <p class="note">신규 교육 사업 신설이 아니라, 이미 시행 중인 교육 프로그램의 고도화 엔진입니다.</p>
+              </div>
+            </div>
+            <div class="col">
+              <div class="stack">
+                <div class="band l2">
+                  <span class="lv">층 2 · 조직화</span>
+                  <h3>집단면역 네트워크</h3>
+                  <p>수료자 → 금융안전 서포터 → 지역·가족 예방 활동 → 의심사례 제보 환류</p>
+                </div>
+                <div class="band l1">
+                  <span class="lv">층 1 · 엔진</span>
+                  <h3>면역 엔진 (B2B2G SaaS)</h3>
+                  <p>수법 인텔리전스 · 취약도 진단 · 적응형 훈련</p>
+                </div>
+                <div class="band base">
+                  <span class="lv">기반 · 이미 존재하는 것</span>
+                  <p>공공 교육 인프라 — 서울시50플러스재단 캠퍼스·자치구 센터, AI디지털배움터 등</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 · 면역 엔진 ─ 심는 문장: AI가 아니면 수법 변형 속도를 못 따라가고, 우리는 지금 동작하는 경로부터 쓴다 -->
+    <section class="slide" aria-label="5. 면역 엔진 3기능">
+      <div class="frame">
+        <header class="rail">
+          <span class="kicker"><span class="no">05</span>면역 엔진 · AI 기술 구조</span>
+        </header>
+        <h2 class="head">AI가 아니면 <span class="hl-a">수법 변형 속도</span>를 따라갈 수 없습니다 — <span class="hl-a">지금 동작(Rule)</span>과 <span class="hl-a">고도화(ML·LLM)</span>를 기능마다 나눠 씁니다.</h2>
+        <div class="body">
+          <div class="grid-3">
+            <div class="card accent">
+              <span class="lab">기능 01</span>
+              <h3>수법 인텔리전스</h3>
+              <p>경찰청·금감원 공개 수법 데이터를 수집·정제 → AI가 훈련 시나리오로 자동 변환</p>
+              <p class="note"><b>지금(Rule)</b> 공개 데이터 파이프라인 — 공공데이터포털 CSV 실재 확인 · <b>고도화(LLM)</b> 변형 패턴 자동 생성</p>
+            </div>
+            <div class="card accent">
+              <span class="lab">기능 02</span>
+              <h3>취약도 진단</h3>
+              <p>훈련 수행 행동 데이터를 Rule-based Scoring으로 점수화 — 기준·가중치 문서화로 재현·감사 가능</p>
+              <p class="note"><b>지금(Rule)</b> 기준·가중치 기반 점수화 · <b>고도화(ML)</b> 수행 데이터 학습으로 판정 정교화</p>
+            </div>
+            <div class="card accent">
+              <span class="lab">기능 03</span>
+              <h3>적응형 훈련</h3>
+              <p>취약 패턴별(권위 순응형 / 악성앱·명의도용형 등) 집중 노출, 문해 수준별 문안 조정</p>
+              <p class="note"><b>지금(LLM)</b> 취약 패턴·문해 수준 조건 전달 · <b>고도화(RAG)</b> 공식 금융자료 근거 제시</p>
+            </div>
+          </div>
+        </div>
+        <footer class="foot"><b>AI 필연성:</b> 생성형 AI로 변형되는 수법의 속도를 사람 손 교안 갱신이 따라갈 수 없습니다. 과장 없이, 학습 데이터가 필요 없는 규칙 경로부터 가동합니다.</footer>
+      </div>
+    </section>
+
+    <!-- 6 · 집단면역 ─ 심는 문장: 수료자가 다음 사람을 지키고, 그 제보가 다음 훈련이 된다 -->
+    <section class="slide" aria-label="6. 집단면역 네트워크">
+      <div class="frame">
+        <header class="rail">
+          <span class="kicker"><span class="no">06</span>집단면역 네트워크</span>
+        </header>
+        <h2 class="head">훈련 수료자가 '금융안전 서포터'가 되어 이웃을 지키고, 서포터의 제보가 다시 훈련이 됩니다.</h2>
+        <div class="body">
+          <div class="col" style="height:100%;">
+            <ol class="flow">
+              <li class="step">
+                <span class="n">STEP 01</span>
+                <h3>훈련 수료</h3>
+                <p>면역 엔진으로 진단·훈련을 마친 교육생</p>
+              </li>
+              <li class="step">
+                <span class="n">STEP 02</span>
+                <h3>서포터 인증</h3>
+                <p>교육 이수 + 실습 통과 → 금융안전 서포터 인증</p>
+              </li>
+              <li class="step">
+                <span class="n">STEP 03</span>
+                <h3>지역·가족 활동</h3>
+                <p>교육 보조 · 취약 이웃 동반 훈련 · 의심사례 상담 연결</p>
+              </li>
+              <li class="step">
+                <span class="n">STEP 04</span>
+                <h3>제보</h3>
+                <p>현장에서 마주친 의심사례를 구조화해 제보</p>
+              </li>
+            </ol>
+            <p class="loop">↺ 제보는 수법 인텔리전스로 환류되어 훈련 시나리오를 갱신합니다 — 사용자가 늘수록 훈련이 빨라지는 데이터 플라이휠.</p>
+            <div class="card seed">
+              <p>활동비 재원은 <b>신규 예산이 아니라 기존 일자리 사업 틀(가치동행일자리) 활용</b>을 제안합니다. 서포터 활동의 지속성은 활동비·인정 체계에 달려 있어, 파일럿에서 검증할 리스크로 명시합니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 · 로드맵 ─ 심는 문장: 실재하는 기관·과정 위에 3단계가 얹혀 있다 -->
+    <section class="slide" aria-label="7. 연계·확산 로드맵">
+      <div class="frame">
+        <header class="rail">
+          <span class="kicker"><span class="no">07</span>연계 · 확산 로드맵</span>
+        </header>
+        <h2 class="head">새로 만들 <span class="hl-a">교육 채널</span>이 없습니다 — <span class="hl-a">실재하는 기관·과정</span> 위에 3단계가 얹히는 구조로 설계했습니다.</h2>
+        <div class="body">
+          <div class="tl">
+            <div class="tl-item">
+              <span class="when">1단계 · 파일럿 (D+6개월)</span>
+              <h3>서울시50플러스재단 북부캠퍼스<br>디지털금융교육 강사 양성과정 1개 기수(25명)</h3>
+              <ul>
+                <li>커리큘럼에 면역 엔진 탑재</li>
+                <li>사전·사후 취약도 측정</li>
+                <li>수료자 → 서포터 1기 전환</li>
+              </ul>
+              <p><span class="chip warn">전제: 재단 협약 (미확보)</span></p>
+            </div>
+            <div class="tl-item">
+              <span class="when">2단계 · 서울 확산 (1~2년차)</span>
+              <h3>5개 캠퍼스 + 14개 자치구 센터,<br>서울런4050</h3>
+              <ul>
+                <li>강사가 엔진으로 교육 수행</li>
+                <li>서포터 활동을 가치동행일자리 틀에 연결</li>
+              </ul>
+              <p><span class="chip on">전제: 파일럿 성과 데이터</span></p>
+            </div>
+            <div class="tl-item">
+              <span class="when">3단계 · 전국 · 민간 (2~3년차)</span>
+              <h3>AI디지털배움터 전국망,<br>금융사 B2B</h3>
+              <ul>
+                <li>전국망 복제</li>
+                <li>금융사 고객 교육·창구 연계</li>
+                <li>타 시도 중장년 재단 복제</li>
+              </ul>
+              <p><span class="chip on">전제: 서울 성과·레퍼런스</span></p>
+            </div>
+          </div>
+        </div>
+        <footer class="foot">조직화(층 2)도 새 조직 신설이 아니라 <b>기존 과정 수료자 위에서</b> 일어납니다. · <span class="canon">본 제안의 기관 연계는 협약 체결 전의 제안입니다.</span></footer>
+      </div>
+    </section>
+
+    <!-- 8 · 비즈니스 모델 ─ 심는 문장: 돈을 낼 주체가 셋이고, 각자 지불 이유가 다르다 -->
+    <section class="slide" aria-label="8. 비즈니스 모델">
+      <div class="frame">
+        <header class="rail">
+          <span class="kicker"><span class="no">08</span>비즈니스 모델</span>
+        </header>
+        <h2 class="head">지불 주체가 <span class="hl-a">셋</span>이고, 각자 <span class="hl-a">돈을 내는 이유가 다릅니다.</span></h2>
+        <div class="body">
+          <div class="grid-3">
+            <div class="card accent">
+              <span class="lab">B2G · 위탁 · 라이선스</span>
+              <h3>지자체 · 공공재단<br><span class="note">50플러스재단, 평생교육 기관</span></h3>
+              <p><b>지불 이유:</b> 기존 교육 사업의 성과 측정·고도화. 신규 예산 신설이 아니라 이미 편성된 사업의 고도화 항목.</p>
+            </div>
+            <div class="card accent">
+              <span class="lab">B2B · 좌석 라이선스 · API</span>
+              <h3>은행 · 보험 · 증권</h3>
+              <p><b>지불 이유:</b> 고령 고객 보호 의무 대응(통신사기피해환급법 등), 사고 예방에 따른 배상·상담 비용 절감, ESG 실적.</p>
+              <p class="note">현재는 지불 유인 논리만 확보 — <b>고객 검증 전</b></p>
+            </div>
+            <div class="card accent">
+              <span class="lab">데이터 · 구독</span>
+              <h3>금융기관 · 정책기관</h3>
+              <p><b>지불 이유:</b> 익명화된 지역·세그먼트별 취약도 인덱스 리포트 — 훈련 수행 행동에서 산출되는 개인 단위 취약도 지표(기존 피해 통계는 사후·집계 데이터).</p>
+            </div>
+          </div>
+        </div>
+        <footer class="foot">C(개인)는 무료 — 공공성 유지, 네트워크 성장 우선. 금융상품 판매·중개는 하지 않습니다. · B2B는 지불 유인 논리만 확보(고객 검증 전) — 첫 매출 경로는 B2G 하나로 좁힙니다. · 매출 추정치는 근거 확보 전까지 제시하지 않습니다.</footer>
+      </div>
+    </section>
+
+    <!-- 9 · KPI·정책 ─ 심는 문장: 공무원이 그대로 보고서에 옮길 수 있는 지표와 정책 근거가 있다 -->
+    <section class="slide" aria-label="9. 성과 지표와 정책 정합">
+      <div class="frame">
+        <header class="rail">
+          <span class="kicker"><span class="no">09</span>성과 지표 · 정책 정합</span>
+        </header>
+        <h2 class="head">담당 공무원이 <span class="hl-a">그대로 보고서에 옮길 수 있는</span> 지표와 정책 근거를 함께 제공합니다.</h2>
+        <div class="body">
+          <div class="grid-2">
+            <div class="col">
+              <span class="lab" style="font-size:var(--t-kicker); font-weight:800; letter-spacing:.14em; color:var(--muted);">KPI 4종</span>
+              <ol class="kpi">
+                <li><span class="k">KPI 01</span><span class="t">이수자 수</span></li>
+                <li><span class="k">KPI 02</span><span class="t">취약도 개선폭(사전·사후)</span></li>
+                <li><span class="k">KPI 03</span><span class="t">서포터 배출 수</span></li>
+                <li><span class="k">KPI 04</span><span class="t">의심사례 제보 건수</span></li>
+              </ol>
+              <p class="src">측정 방법론 선례 — 과기정통부·KISA 사이버 위기대응 모의훈련: 2026 상반기 630개사·25.5만 명 규모로 국가가 집행 중이며, <b>디도스 대응 훈련 기준</b>으로 재참여 기업이 신규 대비 탐지·대응 시간 우위(아시아투데이 보도, 2026.6.26). 측정 대상과 참여 조건이 다르므로 우리 지수를 이 훈련의 지표와 직접 비교하지 않습니다.</p>
+            </div>
+            <div class="col">
+              <div class="card flush">
+                <span class="lab">정책 정합</span>
+                <ul class="list">
+                  <li>금융위 「포용금융 전략 추진단」 — 2026.5 구성·운영방안 발표, 분과 순차 가동</li>
+                  <li>금융위 「생애주기별 금융교육을 통한 금융역량 강화」 — 2025.12 금융교육협의회, 고령층 금융피해 예방 교육 명시</li>
+                  <li>AI 기본법 시행(2026.1) · 금융위 AI 활용 7대 원칙 — 진단은 규칙 기반 출발, 실습은 가상 환경 한정·실계좌 접근 없음, 상품 판매·중개 없음</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="foot">피해 감소액 추정치는 산출 근거를 확보하기 전까지 제시하지 않습니다 — 검증되지 않은 숫자로 정책 판단을 왜곡하지 않기 위해서입니다.</footer>
+      </div>
+    </section>
+
+    <!-- 10 · 클로징 ─ 심는 문장: 협약 전 제안이지만 25명·6개월로 증명할 수 있다 -->
+    <section class="slide dark" aria-label="10. 클로징">
+      <div class="frame">
+        <header class="rail">
+          <span class="kicker"><span class="no">10</span>다음 단계</span>
+          <span class="tag">팀 Fodyssey (Fintech Odyssey)</span>
+        </header>
+        <h2 class="closing-line">기존 교육 인프라에 꽂는 AI 면역 엔진,<br>수료자를 지역 예방 조직으로 바꾸는 집단면역 네트워크</h2>
+        <div class="body">
+          <div class="grid-2 wide-r">
+            <div class="col">
+              <p class="sub">아직 협약 전의 제안입니다. 그래서 처음부터 <b style="color:var(--ink-paper)">가장 작게, 가장 빨리 증명되는 단위</b>를 제안합니다.</p>
+              <p><span class="chip on">25명 · 1개 기수</span> <span class="chip on">6개월</span> <span class="chip on">사전·사후 취약도 측정</span></p>
+            </div>
+            <div class="col">
+              <div class="card">
+                <span class="lab">파일럿 제안 — 요청 사항</span>
+                <ul class="list">
+                  <li>50플러스 북부캠퍼스 디지털금융교육 강사 양성과정 1개 기수에 면역 엔진 탑재</li>
+                  <li>강사 사전 교육 2시간, 사전·사후 취약도 측정 데이터 공동 보유</li>
+                  <li>수료자의 서포터 1기 전환과 가치동행일자리 연결 검토</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="foot">팀 Fodyssey (Fintech Odyssey) · 아이디어 소개용 시안 — 서비스 운영 전</footer>
+      </div>
+    </section>
+
+  </div>
+
+  <nav class="hud" id="hud" aria-label="슬라이드 내비게이션">
+    <span class="count" id="count">01 / 10</span>
+    <div class="dots" id="dots"></div>
+    <div class="meter"><i id="meterFill"></i></div>
+    <span class="hint">← → 이동 · 휠 · 스와이프</span>
+  </nav>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var track  = document.getElementById('track');
+  var hud    = document.getElementById('hud');
+  var count  = document.getElementById('count');
+  var fill   = document.getElementById('meterFill');
+  var dotBox = document.getElementById('dots');
+  var slides = Array.prototype.slice.call(track.querySelectorAll('.slide'));
+  var total  = slides.length;
+  var index  = 0;
+
+  document.body.classList.add('js');
+
+  // 진행 표시 점 생성
+  var dots = slides.map(function(_, n){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'dot';
+    b.setAttribute('aria-label', (n + 1) + '번 슬라이드로 이동');
+    b.addEventListener('click', function(){ go(n); });
+    dotBox.appendChild(b);
+    return b;
+  });
+
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+
+  function render(){
+    track.style.setProperty('--i', index);
+    count.textContent = pad(index + 1) + ' / ' + pad(total);
+    fill.style.width = ((index + 1) / total * 100) + '%';
+    hud.setAttribute('data-dark', slides[index].classList.contains('dark') ? '1' : '0');
+    slides.forEach(function(s, n){
+      s.classList.toggle('is-active', n === index);
+      s.setAttribute('aria-hidden', n === index ? 'false' : 'true');
+    });
+    dots.forEach(function(d, n){ d.setAttribute('aria-current', n === index ? 'true' : 'false'); });
+    if (history.replaceState) history.replaceState(null, '', '#' + (index + 1));
+  }
+
+  function go(n){
+    var next = Math.max(0, Math.min(total - 1, n));
+    if (next === index) return;
+    index = next;
+    render();
+  }
+  function next(){ go(index + 1); }
+  function prev(){ go(index - 1); }
+
+  // 키보드
+  document.addEventListener('keydown', function(e){
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    switch (e.key) {
+      case 'ArrowRight': case 'ArrowDown': case 'PageDown': case ' ': next(); break;
+      case 'ArrowLeft':  case 'ArrowUp':   case 'PageUp':          prev(); break;
+      case 'Home': go(0); break;
+      case 'End':  go(total - 1); break;
+      default: return;
+    }
+    e.preventDefault();
+  });
+
+  // 휠 (throttle)
+  var locked = false;
+  document.addEventListener('wheel', function(e){
+    if (locked) return;
+    if (Math.abs(e.deltaY) < 12) return;
+    locked = true;
+    (e.deltaY > 0 ? next : prev)();
+    setTimeout(function(){ locked = false; }, 680);
+  }, { passive: true });
+
+  // 터치 스와이프
+  var y0 = null, x0 = null;
+  document.addEventListener('touchstart', function(e){
+    y0 = e.touches[0].clientY; x0 = e.touches[0].clientX;
+  }, { passive: true });
+  document.addEventListener('touchend', function(e){
+    if (y0 === null) return;
+    var dy = e.changedTouches[0].clientY - y0;
+    var dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dy) > 46 && Math.abs(dy) > Math.abs(dx)) (dy < 0 ? next : prev)();
+    else if (Math.abs(dx) > 56) (dx < 0 ? next : prev)();
+    y0 = x0 = null;
+  }, { passive: true });
+
+  // 해시 진입
+  var start = parseInt((location.hash || '').replace('#', ''), 10);
+  if (!isNaN(start) && start >= 1 && start <= total) index = start - 1;
+
+  render();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>파일럿 제안서 — 금융백신(FinVaccine, 가칭)</title>
+<meta name="description" content="금융백신 파일럿 제안 — 기존 교육 과정 1개 기수에 탑재하는 6개월 무상 파일럿: 사전·사후 측정, 교안 자동 갱신, 서포터 전환">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23334f7a'/%3E%3Cpath d='M9 16h14M16 9v14' stroke='%23f7f5f0' stroke-width='4'/%3E%3C/svg%3E">
+<style>
+:root {
+  --paper: oklch(97.5% 0.006 85);
+  --ink: oklch(24% 0.015 260);
+  --accent: oklch(48% 0.13 250);
+  --danger: oklch(52% 0.17 25);
+  --card: oklch(99.2% 0.003 85);
+  --rule: oklch(24% 0.015 260 / 0.14);
+  --ink-soft: oklch(24% 0.015 260 / 0.72);
+  --accent-tint: oklch(48% 0.13 250 / 0.08);
+  --danger-tint: oklch(52% 0.17 25 / 0.07);
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+body {
+  font-family: var(--font-sans); background: var(--paper); color: var(--ink);
+  line-height: 1.62; font-size: 1.05rem; border-top: 10px solid var(--ink); word-break: keep-all;
+}
+.wrap { max-width: 900px; margin-inline: auto; padding-inline: clamp(1.1rem, 4vw, 2.5rem); }
+.site-head { border-bottom: 1px solid var(--rule); padding-block: 1.1rem; }
+.site-head .wrap { max-width: 1240px; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.brand { font-weight: 900; font-size: 1.25rem; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+.brand small { font-weight: 500; color: var(--ink-soft); font-size: 0.8rem; margin-left: 0.45rem; }
+.head-links { display: flex; gap: 1.05rem; flex-wrap: wrap; }
+.head-links a { color: var(--accent); font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--accent); padding-bottom: 2px; font-size: 0.95rem; }
+.head-links a:hover { color: var(--danger); border-bottom-color: var(--danger); }
+
+.page-head { padding-block: clamp(2.2rem, 5vw, 4rem) clamp(1.2rem, 3vw, 2rem); }
+.kicker {
+  display: inline-block; font-size: 0.82rem; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent); border-left: 4px solid var(--accent);
+  padding-left: 0.6rem; margin-bottom: 0.9rem;
+}
+h1 { font-size: clamp(1.7rem, 4.2vw, 2.7rem); line-height: 1.2; letter-spacing: -0.02em; font-weight: 900; }
+.page-head p.lede { margin-top: 0.9rem; color: var(--ink-soft); max-width: 64ch; }
+
+.summary {
+  background: var(--card); border: 2px solid var(--ink); border-left: 10px solid var(--accent);
+  padding: clamp(1.1rem, 2.5vw, 1.6rem); margin-bottom: clamp(1.8rem, 3.5vw, 2.6rem);
+}
+.summary .label { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.12em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+.summary p { line-height: 1.7; }
+.proof { display: grid; gap: 10px; margin-top: 0.9rem; }
+@media (min-width: 760px) { .proof { grid-template-columns: repeat(3, 1fr); } }
+.proof .p {
+  background: var(--accent-tint); border: 1px solid var(--rule); padding: 0.8rem 0.95rem; font-size: 0.93rem;
+}
+.proof .p b { display: block; font-size: 1rem; margin-bottom: 0.25rem; }
+
+section { margin-bottom: clamp(2rem, 4vw, 3rem); }
+h2 { font-size: clamp(1.2rem, 2.5vw, 1.55rem); font-weight: 900; letter-spacing: -0.015em; border-top: 5px solid var(--ink); padding-top: 0.9rem; margin-bottom: 0.9rem; display: flex; gap: 0.6rem; align-items: baseline; }
+h2 .no { font-size: 0.85rem; font-weight: 800; color: var(--accent); }
+p { margin-bottom: 0.7rem; }
+p.note { color: var(--ink-soft); font-size: 0.92rem; }
+ol.std { padding-left: 1.3rem; display: flex; flex-direction: column; gap: 0.55rem; }
+ul.plain { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+ul.plain li { padding-left: 1rem; position: relative; }
+ul.plain li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 6px; height: 6px; background: var(--accent); }
+ul.plain.safety li::before { background: var(--danger); }
+
+.table-scroll { overflow-x: auto; border: 1px solid var(--rule); margin-block: 0.6rem 0.9rem; }
+table { border-collapse: collapse; width: 100%; min-width: 640px; background: var(--card); font-size: 0.94rem; }
+th, td { text-align: left; padding: 0.65rem 0.85rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+thead th { background: var(--ink); color: var(--paper); font-size: 0.84rem; letter-spacing: 0.04em; }
+tbody th { font-weight: 800; white-space: nowrap; }
+td b.deliv { color: var(--accent); }
+
+.roles { display: grid; gap: 10px; margin-block: 0.6rem 0.9rem; }
+@media (min-width: 760px) { .roles { grid-template-columns: 1fr 1fr; } }
+.role { background: var(--card); border: 1px solid var(--rule); padding: 1rem 1.2rem; }
+.role.us { border-top: 4px solid var(--accent); }
+.role.them { border-top: 4px solid var(--ink); }
+.role h3 { font-size: 1rem; font-weight: 900; margin-bottom: 0.6rem; }
+.role ul { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; font-size: 0.94rem; }
+.role li { padding-left: 0.95rem; position: relative; }
+.role li::before { content: ""; position: absolute; left: 0; top: 0.6em; width: 6px; height: 6px; background: var(--accent); }
+.role.them li::before { background: var(--ink); }
+
+.footnote { border-top: 1px solid var(--rule); padding-block: 1.2rem 0.4rem; color: var(--ink-soft); font-size: 0.9rem; max-width: 75ch; }
+.site-foot { border-top: 6px solid var(--ink); margin-top: clamp(2rem, 4vw, 3rem); padding-block: clamp(2rem, 4vw, 3rem); }
+.site-foot .wrap { max-width: 1240px; display: grid; gap: 1rem; }
+.site-foot .team { font-weight: 800; font-size: 1.1rem; }
+.site-foot .team small { display: block; font-weight: 500; color: var(--ink-soft); font-size: 0.9rem; margin-top: 0.2rem; }
+.site-foot .notice { color: var(--ink-soft); font-size: 0.9rem; max-width: 62ch; }
+</style>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="index.html">금융백신<small>FinVaccine, 가칭</small></a>
+    <nav class="head-links" aria-label="관련 문서">
+      <a href="index.html">← 서비스 소개</a>
+      <a href="lean-canvas.html">린 캔버스</a>
+      <a href="value-proposition.html">가치 제안 캔버스</a>
+      <a href="pitch-deck.html">피치덱</a>
+      <a href="vc-proposal.html">사업 제안서</a>
+      <a href="icp.html">핵심고객</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="page-head">
+    <span class="kicker">Pilot Proposal · 2026-08-22</span>
+    <h1>파일럿 제안서</h1>
+    <p class="lede">디지털·금융 교육 과정을 운영 중인 공공·준공공 교육 기관을 위한 제안입니다 — 기존 기수 1개, 6개월, 무상.</p>
+  </div>
+
+  <div class="summary">
+    <p class="label">제안 한 문단</p>
+    <p>귀 기관이 <strong>이미 운영 중인 디지털·금융 교육 과정 1개 기수</strong>에 금융백신 면역 엔진을 탑재해, 6개월 안에 세 가지를 증명하는 파일럿을 제안합니다. <strong>파일럿 기수는 무상으로 제공합니다</strong> — 이후 단가는 파일럿 결과와 기관 예산 단위 확인 후 협의합니다.</p>
+    <div class="proof">
+      <div class="p"><b>① 측정</b>교육 성과를 사전·사후 취약도 개선폭으로 측정할 수 있다</div>
+      <div class="p"><b>② 최신화</b>최신 사기 수법이 자동으로 교안에 반영된다</div>
+      <div class="p"><b>③ 전환</b>수료자가 금융안전 서포터로 전환되어 수료 후에도 성과가 이어진다</div>
+    </div>
+  </div>
+
+  <section aria-labelledby="s1">
+    <h2 id="s1"><span class="no">01</span>파일럿 설계 (6개월)</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>단계</th><th>기간</th><th>내용</th><th>산출물</th></tr></thead>
+        <tbody>
+          <tr><th>준비</th><td>4주</td><td>기존 커리큘럼 매핑(교체가 아니라 탑재), 강사 오리엔테이션 <strong>2시간 1회</strong>, 데이터 처리 방식 협의</td><td>탑재 계획서, 강사 가이드</td></tr>
+          <tr><th>사전 진단</th><td>기수 1회차</td><td>수강생 취약도 기준선 측정 — 훈련 수행 행동 기반, 규칙 기반 산식(기준·가중치 문서 공개)</td><td>기수 기준선 리포트</td></tr>
+          <tr><th>운영</th><td>기존 기수 일정 그대로</td><td>회차별 실전 모의훈련 모듈 제공 — 개인 취약 패턴별 문항, 최신 수법 자동 반영</td><td>회차별 참여·진행 데이터</td></tr>
+          <tr><th>사후 측정</th><td>기수 말</td><td>취약도 재측정, 개선폭 산출</td><td><b class="deliv">사전·사후 개선폭 리포트 (업무보고 첨부용 1쪽 포함)</b></td></tr>
+          <tr><th>서포터 전환</th><td>수료 후 4주</td><td>희망 수료자 대상 서포터 인증(추가 실습)과 활동 설계 — 교육 보조 · 이웃 동반 훈련 · 의심사례 제보</td><td>서포터 1기 명단·활동 계획</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="plain">
+      <li>대상 규모: 1개 기수 — 수십 명 단위 코호트, 사전·사후 측정이 성립하는 최소 단위</li>
+      <li>기존 과정의 시수·일정·강사진 <strong>변경 없음</strong>. 엔진은 기존 회차 안의 실습 모듈로 들어갑니다</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="s2">
+    <h2 id="s2"><span class="no">02</span>기관이 얻는 것</h2>
+    <ol class="std">
+      <li><strong>측정 가능한 성과</strong> — "몇 명 수강"이 아니라 KPI 4종: 이수자 수 · 취약도 개선폭(사전·사후) · 서포터 배출 수 · 의심사례 제보 건수. 업무보고 1쪽 리포트로 제공</li>
+      <li><strong>교안 최신화 부담 해소</strong> — 수법 인텔리전스가 최신 수법을 훈련 시나리오로 자동 변환</li>
+      <li><strong>수료 후 성과</strong> — 서포터 활동이라는 사후 관리 스토리. 활동비 재원은 기관의 기존 일자리·활동 사업 틀 활용을 제안 (기관 정책 판단 사항)</li>
+      <li><strong>정책 정합</strong> — 금융위 생애주기별 금융교육('금융역량', 2025.12) · 포용금융 전략 추진단(2026.5~) 방향과 일치, 근거 정책 명시 가능</li>
+      <li><strong>방법론 선례</strong> — 과기정통부·KISA 사이버 위기대응 모의훈련(2026 상반기 630개사·25.5만 명, 국가 집행 중인 사전 훈련 방법론)</li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="s3">
+    <h2 id="s3"><span class="no">03</span>역할 분담</h2>
+    <div class="roles">
+      <div class="role us">
+        <h3>팀 Fodyssey가 합니다</h3>
+        <ul>
+          <li>엔진·훈련 모듈·대시보드 제공 및 운영</li>
+          <li>강사 오리엔테이션(2시간)·운영 지원</li>
+          <li>사전·사후 측정과 리포트 작성</li>
+          <li>서포터 인증 체계 설계·운영</li>
+        </ul>
+      </div>
+      <div class="role them">
+        <h3>기관에 요청합니다</h3>
+        <ul>
+          <li>파일럿 기수 1개 지정 (기존 모집 그대로)</li>
+          <li>강사 오리엔테이션 시간 1회 확보</li>
+          <li>회차 내 실습 모듈 시간 배정 (기존 실습 시간 대체 가능)</li>
+          <li>서포터 활동처 연결 검토 (기존 사업 틀 내)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="s4">
+    <h2 id="s4"><span class="no">04</span>안전·컴플라이언스 — 사고 리스크 0 설계</h2>
+    <ul class="plain safety">
+      <li><strong>개인 금융정보를 수집하지 않습니다.</strong> 진단은 훈련 수행 행동 데이터만 사용합니다</li>
+      <li><strong>실계좌·실거래 무접근.</strong> 모든 실습은 앱 안의 가상 상황 — 전화번호 0000 계열, 가상 URL, 가상 기관명만 사용합니다</li>
+      <li><strong>진단은 규칙 기반으로 출발</strong> — 기준·가중치가 문서로 남아 재현·감사 가능합니다 (금융위 AI 활용 7대 원칙 대응 설계)</li>
+      <li>데이터 처리 방식(보관 주체·기간·익명화)은 준비 단계에서 기관 기준에 맞춰 협의·문서화합니다</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="s5">
+    <h2 id="s5"><span class="no">05</span>성공 기준과 다음 단계</h2>
+    <p><strong>성공 기준 (파일럿 종료 시 판정)</strong> — ① 사전·사후 측정 완주율 ② 취약도 개선폭 유의미성 ③ 서포터 전환 인원 ④ 강사·수강생 만족(운영 부담 평가 포함). 목표 수치는 기준선 측정 후 기관과 합의해 설정합니다 — 근거 없는 목표를 먼저 제시하지 않습니다.</p>
+    <ul class="plain">
+      <li><strong>성공 시</strong> — 타 캠퍼스·센터 확산 협의 + 정식 단가 협의</li>
+      <li><strong>실패 시</strong> — 결과 리포트 전체를 기관에 남기고 종료합니다. 파일럿의 데이터는 기관 자산입니다</li>
+    </ul>
+  </section>
+
+  <p class="footnote">본 제안은 협약 체결 전의 제안입니다. 문서에 언급된 과정·인프라 유형은 공개 자료로 확인된 사실의 인용이며, 특정 기관의 도입 의사와 무관합니다. 기준 문서: 전략 확정본 v1.0 · 핵심고객 정의서 (2026-08-22).</p>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p class="team">팀 Fodyssey<small>Fintech Odyssey</small></p>
+    <p class="notice">본 페이지는 아이디어 소개용 시안이며 서비스 운영 전입니다. 서비스명 "금융백신(FinVaccine)"은 가칭입니다.</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -68,6 +68,10 @@ h1 { font-size: clamp(1.8rem, 4.5vw, 3rem); line-height: 1.18; letter-spacing: -
 .seg-head h2 { font-size: clamp(1.25rem, 2.6vw, 1.7rem); font-weight: 900; letter-spacing: -0.015em; }
 .seg-head p { width: 100%; color: var(--ink-soft); font-size: 0.95rem; max-width: 70ch; }
 
+.vpc-fig { margin: 0 0 1.2rem; }
+.vpc-fig .fig-scroll { overflow-x: auto; border: 1px solid var(--rule); background: var(--card); }
+.vpc-fig svg { display: block; width: 100%; min-width: 760px; height: auto; }
+.vpc-fig figcaption { margin-top: 0.45rem; color: var(--ink-soft); font-size: 0.85rem; }
 .vpc { display: grid; gap: 12px; }
 @media (min-width: 960px) { .vpc { grid-template-columns: 1fr 1fr; align-items: stretch; } }
 .panel { display: flex; flex-direction: column; gap: 10px; }
@@ -141,6 +145,66 @@ tbody th { background: transparent; color: var(--ink); font-weight: 800; }
       <h2 id="seg-a">구매 고객 — 공공 교육 운영 기관</h2>
       <p>재단·지자체 담당자와 공무원 의사결정권자. 서울시50플러스재단 등 — 기존 디지털·금융 교육 사업을 운영 중인 기관.</p>
     </div>
+    <figure class="vpc-fig">
+      <div class="fig-scroll">
+      <svg viewBox="0 0 1160 520" role="img" aria-label="캔버스 A 요약도 — 가치 맵(제품·서비스, 고통 해결, 이익 창출)과 기관 고객 프로필(해야 할 일, 고통, 기대 이익)의 적합 관계">
+        <defs>
+          <marker id="arrA1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="var(--ink)"/>
+          </marker>
+        </defs>
+        <text x="250" y="44" text-anchor="middle" font-size="15" font-weight="800" fill="var(--accent)">가치 맵 — 우리가 제공하는 것</text>
+        <text x="920" y="44" text-anchor="middle" font-size="15" font-weight="800" fill="var(--danger)">고객 프로필 — 기관의 현실</text>
+
+        <rect x="40" y="60" width="420" height="420" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+        <rect x="40" y="60" width="190" height="420" fill="var(--accent-tint)"/>
+        <rect x="230" y="270" width="230" height="210" fill="var(--danger-tint)"/>
+        <line x1="230" y1="60" x2="230" y2="480" stroke="var(--ink)" stroke-width="1.5"/>
+        <line x1="230" y1="270" x2="460" y2="270" stroke="var(--ink)" stroke-width="1.5"/>
+
+        <text x="135" y="100" text-anchor="middle" font-size="14.5" font-weight="800" fill="var(--ink)">제품·서비스</text>
+        <text x="135" y="134" text-anchor="middle" font-size="13" fill="var(--ink)">면역 엔진 SaaS</text>
+        <text x="135" y="158" text-anchor="middle" font-size="13" fill="var(--ink)">기관 대시보드</text>
+        <text x="135" y="182" text-anchor="middle" font-size="13" fill="var(--ink)">서포터 인증 체계</text>
+
+        <text x="345" y="100" text-anchor="middle" font-size="14.5" font-weight="800" fill="var(--accent)">이익 창출</text>
+        <text x="345" y="134" text-anchor="middle" font-size="13" fill="var(--ink)">KPI 4종 자동 리포트</text>
+        <text x="345" y="158" text-anchor="middle" font-size="13" fill="var(--ink)">정책·선례 인용 근거</text>
+        <text x="345" y="182" text-anchor="middle" font-size="13" fill="var(--ink)">조직화 성과 스토리</text>
+
+        <text x="345" y="308" text-anchor="middle" font-size="14.5" font-weight="800" fill="var(--danger)">고통 해결</text>
+        <text x="345" y="340" text-anchor="middle" font-size="13" fill="var(--ink)">교안 자동 갱신</text>
+        <text x="345" y="364" text-anchor="middle" font-size="13" fill="var(--ink)">사전·사후 개선폭 측정</text>
+        <text x="345" y="388" text-anchor="middle" font-size="13" fill="var(--ink)">기존 과정 탑재 (신설 불요)</text>
+        <text x="345" y="412" text-anchor="middle" font-size="13" fill="var(--ink)">수료 후 서포터 연결</text>
+
+        <line x1="480" y1="270" x2="690" y2="270" stroke="var(--ink)" stroke-width="2.5" marker-start="url(#arrA1)" marker-end="url(#arrA1)"/>
+        <text x="585" y="250" text-anchor="middle" font-size="17" font-weight="900" fill="var(--accent)">FIT</text>
+        <text x="585" y="298" text-anchor="middle" font-size="12" fill="var(--ink-soft)">같은 결핍 — 진단의 부재를 해소</text>
+
+        <circle cx="920" cy="270" r="210" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+        <line x1="920" y1="270" x2="710" y2="270" stroke="var(--ink)" stroke-width="1.5"/>
+        <line x1="920" y1="270" x2="1025" y2="88" stroke="var(--ink)" stroke-width="1.5"/>
+        <line x1="920" y1="270" x2="1025" y2="452" stroke="var(--ink)" stroke-width="1.5"/>
+
+        <text x="990" y="222" text-anchor="middle" font-size="14.5" font-weight="800" fill="var(--ink)">해야 할 일</text>
+        <text x="990" y="250" text-anchor="middle" font-size="13" fill="var(--ink)">성과 측정·보고</text>
+        <text x="990" y="274" text-anchor="middle" font-size="13" fill="var(--ink)">정책 과제 이행</text>
+        <text x="990" y="298" text-anchor="middle" font-size="13" fill="var(--ink)">예산 내 고도화</text>
+
+        <text x="845" y="130" text-anchor="middle" font-size="14.5" font-weight="800" fill="var(--accent)">기대 이익</text>
+        <text x="845" y="158" text-anchor="middle" font-size="13" fill="var(--ink)">측정 가능한 보고서</text>
+        <text x="845" y="182" text-anchor="middle" font-size="13" fill="var(--ink)">기존 사업 고도화</text>
+        <text x="845" y="206" text-anchor="middle" font-size="13" fill="var(--ink)">조직화 스토리</text>
+
+        <text x="845" y="352" text-anchor="middle" font-size="14.5" font-weight="800" fill="var(--danger)">고통</text>
+        <text x="845" y="380" text-anchor="middle" font-size="13" fill="var(--ink)">"몇 명" 외 지표 부재</text>
+        <text x="845" y="404" text-anchor="middle" font-size="13" fill="var(--ink)">교안 갱신 여력 없음</text>
+        <text x="845" y="428" text-anchor="middle" font-size="13" fill="var(--ink)">수료 후 단절</text>
+      </svg>
+      </div>
+      <figcaption>캔버스 A 요약도 — 상세 내용은 아래 블록 참조.</figcaption>
+    </figure>
     <div class="vpc">
       <div class="panel map" aria-label="가치 맵 (기관)">
         <p class="panel-title map">Value Map — 우리가 제공하는 것</p>
@@ -209,6 +273,66 @@ tbody th { background: transparent; color: var(--ink); font-weight: 800; }
       <h2 id="seg-b">사용자 — 중장년 교육생 → 금융안전 서포터</h2>
       <p>기존 교육 과정의 수강생. 무료 사용자이자 집단면역 네트워크의 주체.</p>
     </div>
+    <figure class="vpc-fig">
+      <div class="fig-scroll">
+      <svg viewBox="0 0 1160 520" role="img" aria-label="캔버스 B 요약도 — 가치 맵(제품·서비스, 고통 해결, 이익 창출)과 교육생 고객 프로필(해야 할 일, 고통, 기대 이익)의 적합 관계">
+        <defs>
+          <marker id="arrB1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="var(--ink)"/>
+          </marker>
+        </defs>
+        <text x="250" y="44" text-anchor="middle" font-size="15" font-weight="800" fill="var(--accent)">가치 맵 — 우리가 제공하는 것</text>
+        <text x="920" y="44" text-anchor="middle" font-size="15" font-weight="800" fill="var(--danger)">고객 프로필 — 교육생의 현실</text>
+
+        <rect x="40" y="60" width="420" height="420" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+        <rect x="40" y="60" width="190" height="420" fill="var(--accent-tint)"/>
+        <rect x="230" y="270" width="230" height="210" fill="var(--danger-tint)"/>
+        <line x1="230" y1="60" x2="230" y2="480" stroke="var(--ink)" stroke-width="1.5"/>
+        <line x1="230" y1="270" x2="460" y2="270" stroke="var(--ink)" stroke-width="1.5"/>
+
+        <text x="135" y="100" text-anchor="middle" font-size="14.5" font-weight="800" fill="var(--ink)">제품·서비스</text>
+        <text x="135" y="134" text-anchor="middle" font-size="13" fill="var(--ink)">실전 모의훈련 (가상)</text>
+        <text x="135" y="158" text-anchor="middle" font-size="13" fill="var(--ink)">개인 취약도 프로필</text>
+        <text x="135" y="182" text-anchor="middle" font-size="13" fill="var(--ink)">서포터 인증·활동</text>
+
+        <text x="345" y="100" text-anchor="middle" font-size="14.5" font-weight="800" fill="var(--accent)">이익 창출</text>
+        <text x="345" y="134" text-anchor="middle" font-size="13" fill="var(--ink)">훈련 완주 경험</text>
+        <text x="345" y="158" text-anchor="middle" font-size="13" fill="var(--ink)">개선폭 가시화</text>
+        <text x="345" y="182" text-anchor="middle" font-size="13" fill="var(--ink)">역할의 공식화</text>
+
+        <text x="345" y="308" text-anchor="middle" font-size="14.5" font-weight="800" fill="var(--danger)">고통 해결</text>
+        <text x="345" y="340" text-anchor="middle" font-size="13" fill="var(--ink)">최신 수법 자동 반영</text>
+        <text x="345" y="364" text-anchor="middle" font-size="13" fill="var(--ink)">취약 패턴 집중 훈련</text>
+        <text x="345" y="388" text-anchor="middle" font-size="13" fill="var(--ink)">물어볼 곳 제공</text>
+        <text x="345" y="412" text-anchor="middle" font-size="13" fill="var(--ink)">수료 후 다음 단계</text>
+
+        <line x1="480" y1="270" x2="690" y2="270" stroke="var(--ink)" stroke-width="2.5" marker-start="url(#arrB1)" marker-end="url(#arrB1)"/>
+        <text x="585" y="250" text-anchor="middle" font-size="17" font-weight="900" fill="var(--accent)">FIT</text>
+        <text x="585" y="298" text-anchor="middle" font-size="12" fill="var(--ink-soft)">나를 아는 훈련 — 진단이 먼저</text>
+
+        <circle cx="920" cy="270" r="210" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+        <line x1="920" y1="270" x2="710" y2="270" stroke="var(--ink)" stroke-width="1.5"/>
+        <line x1="920" y1="270" x2="1025" y2="88" stroke="var(--ink)" stroke-width="1.5"/>
+        <line x1="920" y1="270" x2="1025" y2="452" stroke="var(--ink)" stroke-width="1.5"/>
+
+        <text x="990" y="222" text-anchor="middle" font-size="14.5" font-weight="800" fill="var(--ink)">해야 할 일</text>
+        <text x="990" y="250" text-anchor="middle" font-size="13" fill="var(--ink)">스스로 판단·대응</text>
+        <text x="990" y="274" text-anchor="middle" font-size="13" fill="var(--ink)">가족·이웃 지키기</text>
+        <text x="990" y="298" text-anchor="middle" font-size="13" fill="var(--ink)">은퇴 후 역할·활동</text>
+
+        <text x="845" y="130" text-anchor="middle" font-size="14.5" font-weight="800" fill="var(--accent)">기대 이익</text>
+        <text x="845" y="158" text-anchor="middle" font-size="13" fill="var(--ink)">취약 유형 파악</text>
+        <text x="845" y="182" text-anchor="middle" font-size="13" fill="var(--ink)">실전 감각</text>
+        <text x="845" y="206" text-anchor="middle" font-size="13" fill="var(--ink)">"지키는 사람" 역할</text>
+
+        <text x="845" y="352" text-anchor="middle" font-size="14.5" font-weight="800" fill="var(--danger)">고통</text>
+        <text x="845" y="380" text-anchor="middle" font-size="13" fill="var(--ink)">배운 것이 금방 낡음</text>
+        <text x="845" y="404" text-anchor="middle" font-size="13" fill="var(--ink)">남 얘기 같은 강의</text>
+        <text x="845" y="428" text-anchor="middle" font-size="13" fill="var(--ink)">물어볼 곳·역할 없음</text>
+      </svg>
+      </div>
+      <figcaption>캔버스 B 요약도 — 상세 내용은 아래 블록 참조.</figcaption>
+    </figure>
     <div class="vpc">
       <div class="panel map" aria-label="가치 맵 (사용자)">
         <p class="panel-title map">Value Map — 우리가 제공하는 것</p>

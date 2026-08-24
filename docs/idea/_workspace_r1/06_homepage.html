@@ -105,10 +105,6 @@ section + section { border-top: 1px solid var(--rule); }
   margin-top: 1.4rem; font-size: clamp(1.1rem, 1rem + 0.5vw, 1.3rem);
   line-height: 1.65; color: var(--ink-soft); max-width: 46ch; font-weight: 500;
 }
-.hero .infra-note {
-  margin-top: 1.2rem; max-width: 48ch; font-size: 0.96rem; line-height: 1.65;
-  color: var(--ink-soft); border-left: 3px solid var(--accent); padding-left: 0.9rem;
-}
 .cta-row { display: flex; gap: 0.9rem; flex-wrap: wrap; margin-top: 2.2rem; }
 .btn {
   display: inline-block; text-decoration: none; font-weight: 700;
@@ -212,74 +208,9 @@ section + section { border-top: 1px solid var(--rule); }
 }
 .flywheel .after { margin-top: 0.9rem; color: var(--ink-soft); font-size: 0.98rem; font-weight: 400; }
 .cycle-svg { width: 100%; max-width: 300px; height: auto; margin-inline: auto; display: block; }
-.wheels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 1.5rem); margin-top: 1.4rem; }
-.wheel { border-top: 4px solid var(--accent); background: var(--card); padding: 1.2rem 1.3rem; }
-.wheel .no { font-size: 0.82rem; font-weight: 800; letter-spacing: 0.1em; color: var(--accent); }
-.wheel h4 { font-size: 1.06rem; margin-top: 0.3rem; letter-spacing: -0.01em; }
-.wheel p { margin-top: 0.5rem; font-size: 0.95rem; color: var(--ink-soft); line-height: 1.6; }
-.wheel .path { margin-top: 0.6rem; font-size: 0.9rem; font-weight: 700; color: var(--ink); line-height: 1.7; }
-
-/* ---------- 구조: 3단 스택 · 시스템 · 주체 ---------- */
-.stack { margin-top: clamp(1.6rem, 3vw, 2.4rem); }
-.stack-row {
-  display: grid; grid-template-columns: 5.5rem minmax(0, 1fr);
-  gap: clamp(0.8rem, 2vw, 1.5rem); align-items: center;
-  padding-block: clamp(1rem, 2vw, 1.4rem); border-top: 1px solid var(--rule);
-}
-.stack-row:first-child { border-top: 3px solid var(--ink); }
-.stack-label {
-  justify-self: start; font-size: 0.8rem; font-weight: 800; letter-spacing: 0.1em;
-  color: var(--paper); background: var(--ink); padding: 0.3rem 0.7rem;
-}
-.stack-row.core .stack-label { background: var(--accent); }
-.stack-body strong { display: block; font-size: 1.05rem; }
-.stack-body span { color: var(--ink-soft); font-size: 0.96rem; }
-.sys-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-  gap: clamp(0.9rem, 2vw, 1.3rem); margin-top: clamp(1.6rem, 3vw, 2.2rem);
-}
-.sys {
-  background: var(--card); border: 1px solid var(--rule); border-top: 4px solid var(--accent);
-  padding: 1.2rem 1.25rem;
-  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
-}
-.sys:hover { transform: translateY(-3px); box-shadow: 0 10px 28px oklch(24% 0.015 260 / 0.09); }
-.sys .no { font-size: 1.25rem; font-weight: 800; color: var(--accent); line-height: 1; }
-.sys h4 { font-size: 1.05rem; margin-top: 0.45rem; letter-spacing: -0.01em; }
-.sys p { margin-top: 0.5rem; font-size: 0.92rem; color: var(--ink-soft); line-height: 1.6; }
-.tag {
-  display: inline-block; margin-top: 0.8rem; font-size: 0.78rem; font-weight: 800;
-  letter-spacing: 0.06em; padding: 0.22rem 0.55rem; border: 1px solid var(--rule);
-}
-.tag.on { color: var(--accent); background: var(--accent-tint); border-color: var(--accent); }
-.tag.part { color: var(--ink); background: transparent; }
-.tag.off { color: var(--ink-soft); background: transparent; }
-.actor-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  gap: clamp(0.9rem, 2vw, 1.3rem); margin-top: clamp(1.4rem, 3vw, 2rem);
-}
-.actor { border-top: 3px solid var(--ink); padding-top: 0.9rem; }
-.actor h4 { font-size: 1.05rem; letter-spacing: -0.01em; }
-.actor dl { margin-top: 0.6rem; font-size: 0.92rem; line-height: 1.6; }
-.actor dt { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; color: var(--accent); margin-top: 0.55rem; }
-.actor dd { color: var(--ink-soft); }
-.callout {
-  margin-top: clamp(1.6rem, 3vw, 2.2rem); background: var(--card);
-  border: 1px solid var(--rule); border-left: 5px solid var(--ink);
-  padding: clamp(1.1rem, 2.5vw, 1.6rem); max-width: 64ch;
-}
-.callout h3 { font-size: 1.08rem; letter-spacing: -0.01em; }
-.callout p { margin-top: 0.6rem; font-size: 0.98rem; line-height: 1.7; }
-.callout p.rule-line { font-weight: 700; color: var(--ink); }
-.callout .src { margin-top: 0.7rem; }
-.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 0.9rem; margin-top: 1rem; }
-.step-box { border: 1px solid var(--rule); background: var(--paper); padding: 0.9rem 1rem; }
-.step-box .idx { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em; color: var(--danger); }
-.step-box strong { display: block; margin-top: 0.25rem; font-size: 0.98rem; }
 
 /* ---------- 비교 표 ---------- */
 .table-scroll { overflow-x: auto; border: 1px solid var(--rule); background: var(--card); }
-.table-scroll + .table-scroll { margin-top: clamp(1.4rem, 3vw, 2rem); }
 table { border-collapse: collapse; width: 100%; min-width: 880px; }
 caption { text-align: left; padding: 1rem 1.2rem 0; font-size: 0.9rem; color: var(--ink-soft); }
 th, td { padding: 0.95rem 1.2rem; text-align: left; border-bottom: 1px solid var(--rule); vertical-align: top; }
@@ -291,7 +222,6 @@ tbody th { font-weight: 700; font-size: 0.98rem; min-width: 13rem; }
 tbody th small { display: block; font-weight: 500; font-size: 0.84rem; color: var(--ink-soft); line-height: 1.45; margin-top: 0.15rem; }
 td { font-size: 0.96rem; line-height: 1.6; color: var(--ink-soft); }
 td.lack { color: var(--danger); }
-td.none { color: var(--ink-soft); opacity: 0.6; }
 tbody tr.ours th, tbody tr.ours td {
   color: var(--ink); font-weight: 700; background: var(--accent-tint);
   border-top: 3px solid var(--accent);
@@ -317,10 +247,6 @@ tbody tr:last-child th, tbody tr:last-child td { border-bottom: none; }
 .phase-when .scope { display: block; margin-top: 0.3rem; color: var(--ink-soft); font-size: 0.9rem; font-weight: 500; }
 .phase-body h3 { font-size: clamp(1.15rem, 1.05rem + 0.6vw, 1.5rem); letter-spacing: -0.01em; }
 .phase-body p { margin-top: 0.55rem; color: var(--ink-soft); }
-.phase-body .opens {
-  display: block; margin-top: 0.7rem; font-size: 0.92rem; font-weight: 700; color: var(--ink);
-}
-.phase-body .opens em { font-style: normal; color: var(--accent); }
 .phase-body .pre {
   display: inline-block; margin-top: 0.8rem; font-size: 0.86rem; font-weight: 700;
   color: var(--danger); background: var(--danger-tint);
@@ -370,10 +296,6 @@ tbody tr:last-child th, tbody tr:last-child td { border-bottom: none; }
   .cycle-svg { max-width: 240px; }
   .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .phase { grid-template-columns: 1fr; gap: 0.6rem; }
-  .wheels { grid-template-columns: 1fr; }
-}
-@media (max-width: 560px) {
-  .stack-row { grid-template-columns: 1fr; gap: 0.5rem; }
 }
 @media (max-width: 480px) {
   .kpi-grid { grid-template-columns: 1fr; }
@@ -389,7 +311,6 @@ tbody tr:last-child th, tbody tr:last-child td { border-bottom: none; }
     <nav class="site-nav" aria-label="주요 섹션">
       <a href="#problem">문제</a>
       <a href="#how">작동 방식</a>
-      <a href="#platform">구조</a>
       <a href="#diff">차이</a>
       <a href="#roadmap">로드맵</a>
       <a href="#model">수익 구조</a>
@@ -410,10 +331,9 @@ tbody tr:last-child th, tbody tr:last-child td { border-bottom: none; }
   <section class="hero" aria-labelledby="hero-heading">
     <div class="wrap hero-grid">
       <div>
-        <p class="kicker"><span class="num">금융 손해 방어 인프라</span></p>
+        <p class="kicker"><span class="num">금융 소비자 보호 인프라</span></p>
         <h1 id="hero-heading">금융백신 — 사기를 차단하는 앱은 많습니다. 사기에 속지 않는 사람을 만드는 인프라는 없습니다.</h1>
         <p class="sub">기존 교육 인프라에 꽂는 AI 면역 엔진, 수료자를 지역 예방 조직으로 바꾸는 집단면역 네트워크</p>
-        <p class="infra-note">금융백신은 금융 손해 방어 인프라(정책 문서 표현: 금융 소비자 보호 인프라)를 지향하는 설계이며, 지역 단위에서 출발합니다.</p>
         <div class="cta-row">
           <a class="btn btn-primary" href="pilot.html">파일럿 제안서 보기</a>
           <a class="btn btn-ghost" href="#roadmap">연계 로드맵 보기</a>
@@ -433,10 +353,6 @@ tbody tr:last-child th, tbody tr:last-child td { border-bottom: none; }
           <li>
             <strong>배운 사람이 지키는 사람으로</strong>
             <span>수료자가 금융안전 서포터가 되어 이웃의 예방 활동을 이끄는 구조</span>
-          </li>
-          <li>
-            <strong>네 주체가 같은 층에서</strong>
-            <span>기관 · 강사 · 교육생 · 서포터를 잇는 운영·데이터 레이어 (구조는 아래 03)</span>
           </li>
         </ul>
       </aside>
@@ -479,11 +395,7 @@ tbody tr:last-child th, tbody tr:last-child td { border-bottom: none; }
       </div>
       <div class="gap-note">
         <p>기존 공공 교육에는 진단·개인화·사후 연결이 없고, 차단 앱은 사람의 판단력을 키우지 않습니다. 조사 범위에서는 4축(진단 유무 / 개인화 단위 / 진단-학습 연결 / 무엇을 지키는가) 전부를 채우는 서비스가 관찰되지 않았습니다.</p>
-        <span class="src">(팀 자체 경쟁 서비스 조사 7개 계열, 2026-08-17)</span>
-      </div>
-      <div class="gap-note">
-        <p>교육을 운영하는 기관 쪽에도 공백이 있습니다. 교안을 갱신할 여력, 수료 후를 관리할 수단, 교육을 수행할 강사를 확보·검증할 절차가 각각 따로 돌아갑니다. 셋은 같은 운영 층의 문제입니다.</p>
-        <span class="src">※ 수치 근거 없이 서술한 구조 진단이며, 기관 인터뷰로 검증할 대상입니다.</span>
+        <span class="src">(팀 자체 경쟁 서비스 조사, 2026-08-17)</span>
       </div>
     </div>
   </section>
@@ -554,201 +466,15 @@ tbody tr:last-child th, tbody tr:last-child td { border-bottom: none; }
             <text x="150" y="156" font-size="14" font-weight="800" fill="oklch(48% 0.13 250)" text-anchor="middle">데이터 플라이휠</text>
           </svg>
         </div>
-
-        <div class="wheels">
-          <article class="wheel">
-            <p class="no">바퀴 1</p>
-            <h4>환류 — 제보가 훈련이 됩니다</h4>
-            <p class="path">훈련 수료 → 서포터 인증 → 예방 활동 → 의심사례 제보 → 수법 인텔리전스 갱신 → 훈련 개선</p>
-            <p>현장에서 먼저 관찰되는 신종 수법 신호가 훈련 시나리오로 돌아옵니다.</p>
-          </article>
-          <article class="wheel">
-            <p class="no">바퀴 2</p>
-            <h4>확산 — 함께 훈련받는 사람이 늘어납니다</h4>
-            <p class="path">서포터 → 가족·이웃 동반 훈련 참여 → 신규 교육생 → 신규 수료자 → 서포터 후보</p>
-            <p>활동 유형은 교육 보조, 이웃 동반 훈련, 가족 훈련 캠페인, 의심사례 제보, 지역 캠페인 지원 5종입니다.</p>
-          </article>
-        </div>
-
-        <div class="callout">
-          <h3>조직화의 운영 원칙</h3>
-          <p class="rule-line">새 기구를 세우는 것이 아니라, 기존 과정 수료자를 인증 체계로 조직합니다.</p>
-          <p class="rule-line">서포터 활동에는 영입 실적에 연동된 금전 보상이 없습니다 — 인증과 활동 기회로만 운영합니다.</p>
-          <p>유인은 비금전 4종입니다 — 인증 등급, 활동 실적 증명서(기관 명의), 기관장 표창 추천, 신규 과정 우선 수강. 기관이 서포터 활동을 이미 운영 중인 활동·일자리 사업 틀에 편입하는 경우 보상 기준과 지급 주체는 그 사업을 따르며, 편입 여부는 기관 정책 판단 사항이자 제안 단계입니다.</p>
-        </div>
       </div>
     </div>
   </section>
 
-  <!-- ④ 플랫폼 구조 -->
-  <section id="platform" aria-labelledby="platform-heading">
-    <div class="wrap">
-      <header class="sec-head">
-        <p class="kicker"><span class="num">03</span> 구조</p>
-        <h2 id="platform-heading">커리큘럼을 대체하지 않고, 그 위에 얹히는 운영·데이터 레이어</h2>
-        <p class="lede">두 개 층을 실제로 돌리려면 기관·강사·교육생·서포터가 같은 층 위에서 움직여야 합니다. 그 층을 교육 운영 시스템 5종으로 구조화했습니다.</p>
-      </header>
-
-      <blockquote class="pull-quote">금융백신 플랫폼은 기관의 기존 교육 과정 위에 얹히는 운영·데이터 레이어입니다 — 기관·강사·교육생·서포터를 잇되, 커리큘럼을 대체하지 않습니다.</blockquote>
-
-      <div class="stack" aria-label="플랫폼 3단 구조 — 코어 · 운영 · 주체">
-        <div class="stack-row core">
-          <span class="stack-label">코어</span>
-          <p class="stack-body"><strong>면역 엔진 3기능</strong><span>수법 인텔리전스 · 취약도 진단 · 적응형 훈련</span></p>
-        </div>
-        <div class="stack-row">
-          <span class="stack-label">운영</span>
-          <p class="stack-body"><strong>교육 운영 시스템 5종</strong><span>① 교안 관리 · ② 강사 인증 · ③ 교육생 조직 관리 · ④ 서포터 활동 채널 · ⑤ 교육 결과 관리</span></p>
-        </div>
-        <div class="stack-row">
-          <span class="stack-label">주체</span>
-          <p class="stack-body"><strong>참여자 4주체</strong><span>기관 — 강사 — 교육생 — 서포터</span></p>
-        </div>
-      </div>
-
-      <div class="sys-grid">
-        <article class="sys">
-          <p class="no">①</p>
-          <h4>교안 관리</h4>
-          <p>수법 반영 자동 갱신 제안, 버전·이력 관리, 기관별 커스터마이즈, 강사 배포.</p>
-          <span class="tag on">AI 적용</span>
-        </article>
-        <article class="sys">
-          <p class="no">②</p>
-          <h4>강사 인증</h4>
-          <p>기관 양성과정 탑재 모듈, 실습 평가, 이수 인정 발급, 인증 강사 풀과 기관 수요 매칭.</p>
-          <span class="tag part">부분 — 매칭은 조건 필터</span>
-        </article>
-        <article class="sys">
-          <p class="no">③</p>
-          <h4>교육생 조직 관리</h4>
-          <p>수료자 명부, 서포터 인증 상태, 활동 배정·이력, 활동 실적 집계, 기관 리포트 연동.</p>
-          <span class="tag off">AI 미적용</span>
-        </article>
-        <article class="sys">
-          <p class="no">④</p>
-          <h4>서포터 활동 채널</h4>
-          <p>구조화 제보 서식, 지역 서포터 그룹 단위 활동 공지·기록, 정형 카드 사례 공유.</p>
-          <span class="tag part">부분 — 제보 정형화·묶기</span>
-        </article>
-        <article class="sys">
-          <p class="no">⑤</p>
-          <h4>교육 결과 관리</h4>
-          <p>사전·사후 취약도 측정, KPI 4종 산출, 기관 대시보드, 업무보고 1쪽 리포트.</p>
-          <span class="tag part">부분 — 집계는 AI 미적용</span>
-        </article>
-      </div>
-
-      <div class="table-scroll" tabindex="0" role="region" aria-label="교육 운영 시스템 5종과 참여자 4주체의 접점 표">
-        <table>
-          <caption>시스템 맵 — 5개 시스템이 4주체와 만나는 지점</caption>
-          <thead>
-            <tr>
-              <th scope="col">시스템</th>
-              <th scope="col">기관</th>
-              <th scope="col">강사</th>
-              <th scope="col">교육생</th>
-              <th scope="col">서포터</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">① 교안 관리</th>
-              <td>승인·커스터마이즈</td>
-              <td>배포받아 사용</td>
-              <td class="none">(간접)</td>
-              <td class="none">—</td>
-            </tr>
-            <tr>
-              <th scope="row">② 강사 인증</th>
-              <td>수요 등록·위촉</td>
-              <td>이수·인증·매칭</td>
-              <td class="none">—</td>
-              <td class="none">(승급 경로)</td>
-            </tr>
-            <tr>
-              <th scope="row">③ 교육생 조직 관리</th>
-              <td>명부·실적 확인</td>
-              <td>활동 추천</td>
-              <td>수료 등록</td>
-              <td>활동 배정</td>
-            </tr>
-            <tr>
-              <th scope="row">④ 서포터 활동 채널</th>
-              <td>지역 그룹 승인</td>
-              <td>활동 지원</td>
-              <td class="none">(참여)</td>
-              <td>제보·활동 기록</td>
-            </tr>
-            <tr>
-              <th scope="row">⑤ 교육 결과 관리</th>
-              <td>대시보드·리포트</td>
-              <td>수업 피드백</td>
-              <td>진단 결과 열람</td>
-              <td>활동 실적 반영</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="actor-grid">
-        <article class="actor">
-          <h4>기관</h4>
-          <dl>
-            <dt>제공</dt><dd>기존 교육 과정·거점·기수, 운영 결정, 도입 예산</dd>
-            <dt>획득</dt><dd>성과 측정(사전·사후 개선폭), 교안 갱신 부담 해소, 수료 후 관리 스토리, 업무보고 1쪽 리포트</dd>
-          </dl>
-        </article>
-        <article class="actor">
-          <h4>강사</h4>
-          <dl>
-            <dt>제공</dt><dd>교육 수행, 현장 피드백, 교안 사용 이력</dd>
-            <dt>획득</dt><dd>최신 수법이 반영된 교안, 인증 이력, 기관 수요와의 매칭 기회</dd>
-          </dl>
-        </article>
-        <article class="actor">
-          <h4>교육생</h4>
-          <dl>
-            <dt>제공</dt><dd>훈련 수행 행동 데이터(개인 금융정보 아님)</dd>
-            <dt>획득</dt><dd>개인 취약 패턴별 훈련, 사전·사후 진단 결과</dd>
-          </dl>
-        </article>
-        <article class="actor">
-          <h4>서포터</h4>
-          <dl>
-            <dt>제공</dt><dd>예방 활동, 의심사례 제보, 동반 참여 유도</dd>
-            <dt>획득</dt><dd>인증 등급, 활동 실적 증명, 기관 활동 기회</dd>
-          </dl>
-        </article>
-      </div>
-
-      <div class="callout">
-        <h3>강사 — 인증과 매칭의 경계</h3>
-        <p>기관의 기존 강사 양성과정에 엔진 실습 모듈과 실습 평가를 얹고(시스템 ②), 인증 강사 풀과 기관 수요를 조건 필터로 연결합니다. 새 양성과정을 신설하지 않습니다.</p>
-        <p class="rule-line">강사의 위촉·계약·보수 지급 주체는 기관입니다. 금융백신은 인증·매칭·품질 관리를 제공하며, 강사를 고용하거나 파견하지 않고 매칭 수수료를 받지 않습니다.</p>
-        <span class="src">매칭 기능의 법적 사업 유형 판단은 노무·법률 자문 전이며, 그 전까지 무수수료·기관 자율 선택·기관 위촉이라는 설계 조건을 유지합니다.</span>
-      </div>
-
-      <div class="callout">
-        <h3>손해 방어의 범위</h3>
-        <p class="rule-line">금융백신의 방어는 사전 훈련 → 의심 상황 판별 지원 → 공식 신고·상담 창구 연결까지입니다. 상담·환급 절차 대행·금융상품 판매·중개는 하지 않습니다.</p>
-        <div class="steps">
-          <div class="step-box"><p class="idx">단계 1</p><strong>사전 훈련</strong></div>
-          <div class="step-box"><p class="idx">단계 2</p><strong>의심 상황 판별 지원</strong></div>
-          <div class="step-box"><p class="idx">단계 3</p><strong>공식 창구 연결</strong></div>
-        </div>
-        <span class="src">개인 금융정보는 수집하지 않습니다. 서포터 활동 채널에는 개인 금융정보 게시를 입력 단계에서 차단하고, 개인 간 금융 상담·중개 기능을 두지 않으며, 공개 자유게시판 형태는 이번 설계에서 채택하지 않습니다.</span>
-      </div>
-
-      <p class="footnote"><strong>설계 5종 / 실행 2종</strong> — 시스템 5종은 전부 설계·서술하되, 파일럿에서 실제로 여는 것은 ① 교안 관리와 ⑤ 교육 결과 관리 2종, 그리고 수동 운영으로 진행하는 서포터 전환입니다. 나머지는 확산 단계에서 순서대로 엽니다(아래 05).</p>
-    </div>
-  </section>
-
-  <!-- ⑤ 기존 대응과의 차이 -->
+  <!-- ④ 기존 대응과의 차이 -->
   <section id="diff" aria-labelledby="diff-heading">
     <div class="wrap">
       <header class="sec-head">
-        <p class="kicker"><span class="num">04</span> 기존 대응과의 차이</p>
+        <p class="kicker"><span class="num">03</span> 기존 대응과의 차이</p>
         <h2 id="diff-heading">조사 범위(2026-08-17, 7개 계열)에서 4축을 함께 채우는 서비스는 관찰되지 않았습니다</h2>
         <p class="lede">금융백신은 4축 동시 충족을 목표로 설계했습니다. 아래 비교는 팀이 직접 조사한 7개 계열이며, 전수 조사는 아닙니다.</p>
       </header>
@@ -818,60 +544,56 @@ tbody tr:last-child th, tbody tr:last-child td { border-bottom: none; }
         </table>
       </div>
       <div class="gap-note">
-        <p>조사 범위에서 관찰된 것은 셋입니다. 시민을 향한 서비스에는 진단이 거의 없고, 개인화가 있는 계열은 사람이 아니라 장치(단말·계좌·발신번호)를 보며, 진단–학습 연결이 성립한 사례는 조사 범위에서 조직 대상 서비스에서만 확인됐습니다. 금융백신은 그 조합을 공공 교육 인프라를 계약 단위로 삼아 시민에게 가져오고, 수료자 조직화 층을 덧붙입니다.</p>
-        <span class="src">운영 레이어를 포함하면서 비교 대상이 넓어졌습니다. LMS·에듀테크·강사 매칭 계열을 포함한 경쟁 범위 재조사가 예정되어 있으며, 그 전까지 위 결론은 7개 계열 조사 범위 안의 관찰로만 읽어야 합니다.</span>
+        <p>조사 범위에서 관찰된 것은 셋입니다. 시민을 향한 서비스에는 진단이 거의 없고, 개인화가 있는 계열은 사람이 아니라 장치(단말·계좌·발신번호)를 보며, 진단–학습 연결이 성립한 사례는 국내외 모두 계약 단위가 기업인 조직 대상 서비스뿐이었습니다. 금융백신은 그 조합을 공공 교육 인프라를 계약 단위로 삼아 시민에게 가져오고, 수료자 조직화 층을 덧붙입니다.</p>
       </div>
     </div>
   </section>
 
-  <!-- ⑥ 연계 로드맵 -->
+  <!-- ⑤ 연계 로드맵 -->
   <section id="roadmap" aria-labelledby="roadmap-heading">
     <div class="wrap">
       <header class="sec-head">
-        <p class="kicker"><span class="num">05</span> 연계 로드맵</p>
-        <h2 id="roadmap-heading">확산은 "몇 곳"이 아니라 "어느 시스템을 여는가"로 정의합니다</h2>
-        <p class="lede">3단계 전부 실재 기관·프로그램을 명시하고, 단계마다 열리는 시스템을 못박았습니다. 검증 가능한 성과 데이터가 다음 단계의 열쇠입니다.</p>
+        <p class="kicker"><span class="num">04</span> 연계 로드맵</p>
+        <h2 id="roadmap-heading">신규 사업 신설이 아니라, 실재하는 프로그램의 고도화입니다</h2>
+        <p class="lede">3단계 전부 실재 기관·프로그램을 명시합니다. 검증 가능한 성과 데이터가 다음 단계의 열쇠입니다.</p>
       </header>
       <ol class="timeline">
         <li class="phase">
           <div class="phase-when">파일럿<span class="scope">D+6개월</span></div>
           <div class="phase-body">
             <h3>서울시50플러스재단 북부캠퍼스 — 디지털금융교육 강사 양성과정</h3>
-            <p>1개 기수 커리큘럼에 면역 엔진을 탑재하고, 사전·사후 취약도를 측정합니다. 수료자를 금융안전 서포터 1기로 전환하되, 이 단계의 전환은 시스템 없이 수동 운영합니다. 기존 시수·일정·강사진은 바뀌지 않으며, 강사 오리엔테이션 2시간 1회로 시작합니다.</p>
-            <span class="opens">열리는 시스템 — <em>① 교안 관리 · ⑤ 교육 결과 관리</em></span>
-            <span class="pre">전제: 기관 협약 필요 (미확보 — 제안 단계)</span>
+            <p>1개 기수(25명, 2026년 운영 확인) 커리큘럼에 면역 엔진을 탑재하고, 사전·사후 취약도를 측정합니다. 수료자를 금융안전 서포터 1기로 전환합니다.</p>
+            <span class="pre">전제: 재단 협약 필요 (미확보 — 제안 단계)</span>
           </div>
         </li>
         <li class="phase">
           <div class="phase-when">서울 확산<span class="scope">1~2년차</span></div>
           <div class="phase-body">
             <h3>5개 캠퍼스 + 14개 자치구 센터, 서울런4050</h3>
-            <p>인증 강사가 엔진으로 교육을 수행하고, 조직 관리 시스템이 파일럿의 수동 절차를 대체합니다. 서포터 활동을 기관의 기존 활동·일자리 사업 틀에 연결하는 방안은 기관 정책 판단 사항으로 제안합니다.</p>
-            <span class="opens">열리는 시스템 — <em>+ ③ 교육생 조직 관리 · ② 강사 인증</em></span>
-            <span class="pre">전제: 파일럿 성과 데이터, 기관 운영 판단</span>
+            <p>양성된 강사가 엔진으로 교육을 수행하고, 서포터 활동을 가치동행일자리 틀에 연결해 활동비 재원을 기존 사업 예산 안에서 제안합니다.</p>
+            <span class="pre">전제: 파일럿 성과 데이터</span>
           </div>
         </li>
         <li class="phase">
           <div class="phase-when">전국·민간<span class="scope">2~3년차</span></div>
           <div class="phase-body">
             <h3>AI디지털배움터(전국망) + 금융사 B2B</h3>
-            <p>전국망 복제와 함께 금융사 고객 교육·창구 연계로 확장합니다. 활동 채널은 게시물 관리 의무와 상시 모더레이션의 담당·재원이 확인된 뒤에 엽니다.</p>
-            <span class="opens">열리는 시스템 — <em>+ ④ 서포터 활동 채널</em></span>
-            <span class="pre">전제: 서울 성과·레퍼런스, 운영 의무 검토 완료</span>
+            <p>전국망 복제와 함께 금융사 고객 교육·창구 연계로 확장합니다. 타 시도 중장년 재단으로의 복제 경로를 확보합니다.</p>
+            <span class="pre">전제: 서울 성과·레퍼런스</span>
           </div>
         </li>
       </ol>
-      <p class="footnote"><strong>※ 본 제안의 기관 연계는 협약 체결 전의 제안입니다.</strong> 언급된 기관·프로그램(서울시50플러스재단, 서울런4050, AI디지털배움터 등)은 실재 여부만 확인된 연계 대상입니다. 과정의 시수·정원은 해당 기수 공고 기준이며 다른 기수로 일반화하지 않습니다.</p>
+      <p class="footnote"><strong>※ 본 제안의 기관 연계는 협약 체결 전의 제안입니다.</strong> 언급된 기관·프로그램(서울시50플러스재단, 서울런4050, AI디지털배움터 등)은 실재 여부만 확인된 연계 대상입니다.</p>
     </div>
   </section>
 
-  <!-- ⑦ 수익 구조 -->
+  <!-- ⑥ 수익 구조 -->
   <section id="model" aria-labelledby="model-heading">
     <div class="wrap">
       <header class="sec-head">
-        <p class="kicker"><span class="num">06</span> 수익 구조</p>
+        <p class="kicker"><span class="num">05</span> 수익 구조</p>
         <h2 id="model-heading">누가 왜 지불하는가</h2>
-        <p class="lede">금융백신의 본체는 교육 콘텐츠가 아니라 금융 손해 방어 인프라입니다. 지불 주체는 셋이고, 각각 지불할 이유가 다릅니다.</p>
+        <p class="lede">금융백신의 본체는 교육 콘텐츠가 아니라 금융 소비자 보호 인프라입니다. 지불 주체는 셋이고, 각각 지불할 이유가 다릅니다.</p>
       </header>
       <div class="fn-grid">
         <article class="fn">
@@ -891,19 +613,19 @@ tbody tr:last-child th, tbody tr:last-child td { border-bottom: none; }
         </article>
       </div>
       <div class="gap-note">
-        <p>개인(C)은 무료입니다. 공공성 유지와 네트워크 성장을 우선하며, <strong>금융상품 판매·중개는 하지 않습니다.</strong> 운영 레이어를 5종으로 넓혀도 <strong>과금 지점은 늘지 않습니다</strong> — 강사·교육생·서포터에게서 수수료를 걷는 구조를 두지 않습니다.</p>
-        <span class="src">계약 단가·규모는 기관의 2026년 주요 업무 보고 예산 단위를 확인한 뒤 산정할 예정이며, 확인 전까지 제시하지 않습니다. 매출 추정치도 근거 확보 전까지 제시하지 않습니다.</span>
+        <p>개인(C)은 무료입니다. 공공성 유지와 네트워크 성장을 우선하며, <strong>금융상품 판매·중개는 하지 않습니다.</strong></p>
+        <span class="src">계약 단가·규모는 재단 2026년 주요 업무 보고의 예산 단위를 확인한 뒤 산정할 예정이며, 확인 전까지 제시하지 않습니다. 매출 추정치도 근거 확보 전까지 제시하지 않습니다.</span>
       </div>
-      <p class="footnote"><strong>정책 정합</strong> — 금융위 「포용금융 전략 추진단」(2026.5 구성·운영방안 발표, 분과 순차 가동), 금융위 「생애주기별 금융교육을 통한 금융역량 강화」(2025.12 금융교육협의회 — '금융역량'은 정책 실재 용어, 고령층 금융피해 예방 교육 명시), AI 기본법 시행(2026.1)·금융위 AI 활용 7대 원칙. 참여 기관은 지역 단위 예방 데이터의 노드가 됩니다.</p>
+      <p class="footnote"><strong>정책 정합</strong> — 금융위 「포용금융 전략 추진단」(2026.5 구성·운영방안 발표, 분과 순차 가동), 금융위 「생애주기별 금융교육을 통한 금융역량 강화」(2025.12 금융교육협의회 — '금융역량'은 정책 실재 용어, 고령층 금융피해 예방 교육 명시), AI 기본법 시행(2026.1)·금융위 AI 활용 7대 원칙.</p>
       <p class="footnote"><strong>팀</strong> — 팀 Fodyssey는 기획·AI 개발·데이터·교육 연계·검증 5개 역할 구조로 구성됩니다.</p>
     </div>
   </section>
 
-  <!-- ⑧ KPI -->
+  <!-- ⑦ KPI -->
   <section id="kpi" aria-labelledby="kpi-heading">
     <div class="wrap">
       <header class="sec-head">
-        <p class="kicker"><span class="num">07</span> 성과 지표</p>
+        <p class="kicker"><span class="num">06</span> 성과 지표</p>
         <h2 id="kpi-heading">약속은 측정 가능한 것만 합니다</h2>
       </header>
       <p class="kpi-line">KPI 4종: 이수자 수 · 취약도 개선폭(사전·사후) · 서포터 배출 수 · 의심사례 제보 건수</p>
@@ -929,17 +651,17 @@ tbody tr:last-child th, tbody tr:last-child td { border-bottom: none; }
           <p>서포터가 제보한 의심사례 건수. 훈련 시나리오 갱신으로 환류되는 플라이휠의 입력입니다.</p>
         </article>
       </div>
-      <p class="src kpi-src">사전·사후 측정 방법론 선례: 과기정통부·KISA 사이버 위기대응 모의훈련 — 2026 상반기 630개사·25.5만 명 규모로 국가 집행 중이며, <strong>디도스 대응 훈련 기준</strong>으로 재참여 기업이 신규 참여 기업보다 탐지·대응 시간에서 우위를 보였습니다 (과기정통부·KISA — 아시아투데이 보도, 2026.6.26).<br>※ 재참여 우위 수치는 디도스 대응 훈련 지표입니다. 측정 대상과 참여 조건이 다르므로 금융백신의 취약도 지수를 이 훈련의 지표와 직접 비교하지 않습니다.</p>
+      <p class="src kpi-src">사전·사후 측정 방법론 선례: 과기정통부·KISA 사이버 위기대응 모의훈련 — 2026 상반기 630개사·25.5만 명 규모로 국가 집행 중이며, <strong>디도스 대응 훈련 기준</strong>으로 재참여 기업이 신규 참여 기업보다 탐지·대응 시간에서 우위를 보였습니다 (과기정통부·KISA, 2026).<br>※ 재참여 우위 수치는 디도스 대응 훈련 지표입니다. 측정 대상과 참여 조건이 다르므로 금융백신의 취약도 지수를 이 훈련의 지표와 직접 비교하지 않습니다.</p>
     </div>
   </section>
 
 </main>
 
-<!-- ⑨ 푸터 -->
+<!-- ⑧ 푸터 -->
 <footer class="site-foot">
   <div class="wrap">
     <p class="team">팀 Fodyssey<small>Fintech Odyssey</small></p>
-    <p class="notice"><strong>본 페이지는 아이디어 소개용 시안이며 서비스 운영 전입니다.</strong> 서비스명 "금융백신(FinVaccine)"은 가칭이며 상표·기존 서비스명 충돌 검토 전입니다. 교육 운영 시스템 5종의 명칭도 검토 대상입니다.</p>
+    <p class="notice"><strong>본 페이지는 아이디어 소개용 시안이며 서비스 운영 전입니다.</strong> 서비스명 "금융백신(FinVaccine)"은 가칭이며 상표·기존 서비스명 충돌 검토 전입니다.</p>
     <p class="contact">문의: fodyssey.contact@example.com (가설정 — 실주소 확정 전이며 메일 수신은 되지 않습니다)</p>
   </div>
 </footer>
